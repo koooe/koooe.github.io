@@ -1,0 +1,439 @@
+<HTML>
+	<HEAD>
+		<TITLE>converter</TITLE>
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+		<LINK href="wwmstyle.css" rel="StyleSheet" type="text/css">
+			<!-- ***********************************************************	
+Description			: World Wide Metric Home Page.	
+Called By			: http://www.worldwidemetric.com
+Last Modified		: Pramod K Poduval - Pronto Solutions, LLC.28./11/2003
+Last Modified   	: Pramod K Poduval    28/11/2003*********************************************************** -->
+			<STYLE id="IE4_STYLE_SHEET">A:hover {
+	COLOR: red
+}
+        </STYLE>
+			<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+//-->
+			</script>
+			<script type="text/javascript" language="JavaScript1.2" src="stm31.js"></script>
+	</HEAD>
+	<BODY      style="filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr='#6790FC', endColorstr='#032174', gradientType='1');"                   BGCOLOR="#003366" LEFTMARGIN="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+<br>	
+		<table      <body  style="filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr='#032174', endColorstr='#0A46E8', gradientType='1');"                  width="616" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#006699">
+			<tr>
+				<td width="661">
+					<table width="610" height="75%" border="0" cellpadding="0" cellspacing="0" background="images/bg_inside.gif">
+						<tr valign="top">
+							<td align="center" class="wwmtitle" width="627">
+								<div align="left">
+									<table width="614" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td align="center" valign="top" width="614">
+												<center>
+												<p></p>
+												</center>
+												<p>
+													<font color="#FFFFFF">
+													<script language="JavaScript"><!--
+// Author    : Robert Collette (ROBERT-COLLETTE@worldnet.att.net) 
+
+function convertTempform(form)
+{
+	if (form.elements[1].value != null && form.elements[1].value.length != 0) 
+	{
+		firstvalue = form.elements[1].value
+		form.elements[2].value = formatvalue((1.8 * firstvalue) + 32, form.rsize);
+		return
+	}
+	if (form.elements[2].value != null && form.elements[2].value.length != 0) 
+	{
+		firstvalue = form.elements[2].value
+		form.elements[1].value = formatvalue(( firstvalue - 32) / 1.8, form.rsize);
+		return
+	}
+}
+
+function convertform(form){
+    var firstvalue = 0;
+
+    for (var i = 1; i <= form.count; i++) {
+
+       // Find first non-blank entry
+
+       if (form.elements[i].value != null && form.elements[i].value.length != 0) {
+
+          if (i == 1 && form.elements[2].value != "") return false;
+
+          firstvalue = form.elements[i].value / form.elements[i].factor;
+
+          break;
+
+       }
+
+    }
+
+    if (firstvalue == 0) {
+
+       clearform(form);
+
+       return false;
+
+    }
+
+    for (var i = 1; i <= form.count; i++)
+
+       form.elements[i].value = formatvalue((firstvalue * form.elements[i].factor), form.rsize);
+
+    return true;
+
+}
+
+function formatvalue(input, rsize) {
+
+   var invalid = "**************************";
+
+   var nines = "999999999999999999999999";
+
+   var strin = "" + input;
+
+   var fltin = parseFloat(strin);
+
+   if (strin.length <= rsize) return strin;
+
+   if (strin.indexOf("e") != -1 ||
+
+       fltin > parseFloat(nines.substring(0,rsize)+".4"))
+
+      return invalid.substring(0, rsize);
+
+   var rounded = "" + (fltin + (fltin - parseFloat(strin.substring(0, rsize))));
+
+   return rounded.substring(0, rsize);
+
+}
+
+function resetform(form) {
+
+    clearform(form);
+
+    form[1].value = 1;
+
+    convertform(form);
+
+    return true;
+
+}
+
+function clearform(form) {
+
+    for (var i = 1; i <= form.count; i++) form[i].value = "";
+
+    return true;
+
+}
+
+
+// -->
+													</script>
+													</font>
+													<center>
+													<p></p>
+													</center>
+
+
+
+													<form method="POST">
+														<center>
+														<p></p>
+														</center>
+														<center>
+														<br>
+															<p>
+																<table border="0" cellpadding="9" cellspacing="1" bgcolor="#0066CC">
+																	<tr bgcolor="#003366">
+																		<td align="center" class="wwmservicezoom">
+                                                                        <font color="#FFFFFF">
+                                                                        Millimeters</font></td>
+																		<td align="center" class="wwmservicezoom">
+                                                                        <font color="#FFFFFF">
+                                                                        Inches</font></td>
+																		<td align="center" class="wwmservicezoom">
+                                                                        <font color="#FFFFFF">
+                                                                        Meter</font></td>
+																		<td align="center" class="wwmservicezoom">
+                                                                        <font color="#FFFFFF">
+                                                                        Feet</font></td>
+																		<td align="center" class="wwmservicezoom">
+                                                                        <font color="#FFFFFF">
+                                                                        Yards</font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input name="button" type="button" onclick="clearform(this.form)" value="Clear"></font></td>
+																	</tr>
+																	<tr bgcolor="#003366">
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val1" size="7" onfocus="clearform(this.form)"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val2" size="7" onfocus="clearform(this.form)"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val3" size="7" onfocus="clearform(this.form)"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val4" size="7" onfocus="clearform(this.form)"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val5" size="7" onfocus="clearform(this.form)"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input name="button2" type="button" onclick="convertform(this.form)" value="Calculate"></font></td>
+																	</tr>
+																</table>
+														</center>
+														<center>
+															<p>
+														</center>
+													</form>
+													<center>
+														<script language="JavaScript"><!--
+// factors must convert the first item to the current item.
+
+// Be sure to use the correct form index. The first form is
+
+// always index "0" and remaining forms are numbered in the
+
+// order they appear in the document.
+
+document.forms[0].count = 5;  // number of unit types
+
+document.forms[0].rsize = 7;  // Rounding size, use same as SIZE
+
+document.forms[0].val1.factor = 10;            // mm to mm.
+
+document.forms[0].val2.factor = 0.3937007874;  // mm to in.
+
+document.forms[0].val3.factor = 0.01;  // mm to mtr.
+
+document.forms[0].val4.factor = 0.03280839895;  // mm to feet.
+
+document.forms[0].val5.factor = 0.01093613298; //mm to yards.
+
+
+
+// -->
+														</script>
+													</center>
+													<form method="POST">
+														<center>
+														<p></p>
+														</center>
+														<center>
+															<p>
+																<table width="438" border="0" cellpadding="7" cellspacing="1" bgcolor="#0066CC">
+																	<tr bgcolor="#003366" class="wwmservicezoom">
+																		<td width="153" align="center">
+                                                                        <font color="#FFFFFF">
+                                                                        Kilograms</font></td>
+																		<td width="112" align="center">
+                                                                        <font color="#FFFFFF">
+                                                                        Pounds</font></td>
+																		<td width="160" align="center">
+																			<font color="#FFFFFF">
+																			<input name="button2" type="button" onclick="clearform(this.form)" value="Clear"></font></td>
+																	</tr>
+																	<tr bgcolor="#003366">
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val1" size="6"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val2" size="6" onfocus="clearform(this.form)"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input name="button2" type="button" onclick="convertform(this.form)" value="calculate">
+                                                                            </font>
+																		</td>
+																	</tr>
+																</table>
+														</center>
+													</form>
+													<script language="javascript"> <!-- set conversion factors for each item in form.
+
+document.forms[1].count = 2;
+
+document.forms[1].rsize = 6;
+
+document.forms[1].val1.factor = 1;
+
+document.forms[1].val2.factor = 2.2046215;
+
+
+
+<!-- done hiding from old browsers --> </script>
+													<form method="post">
+														<table width="556" border="0" cellpadding="9" cellspacing="1" bgcolor="#0066CC">
+															<tr bgcolor="#003366" class="wwmservicezoom">
+																<td width="110" align="center">
+                                                                <font color="#FFFFFF">
+                                                                Bar</font></td>
+																<td width="184" align="center">
+                                                                <font color="#FFFFFF">
+                                                                Kg/cm</font></td>
+																<td width="110" align="center">
+                                                                <font color="#FFFFFF">
+                                                                Psi</font></td>
+																<td align="center">
+																	<font color="#FFFFFF">
+																	<input name="button2" type="button" onclick="clearform(this.form)" value="Clear"></font></td>
+															</tr>
+															<tr bgcolor="#003366">
+																<td align="center">
+																	<font color="#FFFFFF">
+																	<input type="text" name="val1" size="6"></font></td>
+																<td align="center">
+																	<font color="#FFFFFF">
+																	<input type="text" name="val2" size="6" onfocus="clearform(this.form)"></font></td>
+																<td align="center">
+																	<font color="#FFFFFF">
+																	<input type="text" name="val3" size="6" onfocus="clearform(this.form)"></font></td>
+																<td width="147" align="center">
+																	<font color="#FFFFFF">
+																	<input name="button2" type="button" onclick="convertform(this.form)" value="calculate">
+                                                                    </font>
+																</td>
+															</tr>
+														</table>
+													</form>
+													<script language="javascript"> <!-- set conversion factors for each item in form.
+
+document.forms[2].count = 3;
+
+document.forms[2].rsize = 6;
+
+document.forms[2].val1.factor = 0.980665;
+
+document.forms[2].val2.factor = 1;
+
+document.forms[2].val3.factor = 14.22;
+
+
+
+<!-- done hiding from old browsers --> </script>
+													<form method="post">
+														<table width="557" border="0" cellpadding="9" cellspacing="1" bgcolor="#0066CC">
+															<tr bgcolor="#003366" class="wwmservicezoom">
+																<td align="center" width="86">
+                                                                <font color="#FFFFFF">
+                                                                Liters</font></td>
+																<td align="center" width="87">
+                                                                <font color="#FFFFFF">
+                                                                Fluid<br>
+																	Ounces</font></td>
+																<td align="center" width="87">
+                                                                <font color="#FFFFFF">
+                                                                Quarts</font></td>
+																<td align="center" width="87">
+                                                                <font color="#FFFFFF">
+                                                                Gallons</font></td>
+																<td align="center" width="114">
+																	<font color="#FFFFFF">
+																	<input name="button2" type="button" onclick="clearform(this.form)" value="Clear"></font></td>
+															</tr>
+															<tr bgcolor="#003366">
+																<td align="center" width="86">
+																	<font color="#FFFFFF">
+																	<input type="text" name="val1" size="6" onfocus="clearform(this.form)"></font></td>
+																<td align="center" width="87">
+																	<font color="#FFFFFF">
+																	<input type="text" name="val2" size="6" onfocus="clearform(this.form)"></font></td>
+																<td align="center" width="87">
+																	<font color="#FFFFFF">
+																	<input type="text" name="val3" size="6" onfocus="clearform(this.form)"></font></td>
+																<td align="center" width="87">
+																	<font color="#FFFFFF">
+																	<input type="text" name="val4" size="6" onfocus="clearform(this.form)"></font></td>
+																<td align="center" width="114">
+																	<font color="#FFFFFF">
+																	<input name="button2" type="button" onclick="convertform(this.form)" value="calculate">
+                                                                    </font>
+																</td>
+															</tr>
+														</table>
+													</form>
+													<script language="javascript">
+//set conversion factors for each item in form. document.forms[3].count="4;" 
+document.forms[3].count = 4;
+document.forms[3].rsize=6; 
+document.forms[3].val1.factor=1;
+document.forms[3].val2.factor=33.8239926;
+document.forms[3].val3.factor=1.056998; 
+document.forms[3].val4.factor=0.2642499; // end hiding script - - 
+//onfocus="clearform(this.form)"
+													</script>
+													<!-- Start: Temperature Conversion -->
+													<form method="POST">
+														<center>
+															<p>
+																<table border="0" cellpadding="9" cellspacing="1" bgcolor="#0066CC" ID="Table1">
+																	<tr bgcolor="#003366">
+																		<td align="center" class="wwmservicezoom">
+                                                                        <font color="#FFFFFF">
+                                                                        Celsius</font></td>
+																		<td align="center" class="wwmservicezoom">
+                                                                        <font color="#FFFFFF">
+                                                                        Fahrenheit</font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input name="button" type="button" onclick="clearform(this.form)" value="Clear" ID="Button1"></font></td>
+																	</tr>
+																	<tr bgcolor="#003366">
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val1" size="7" onfocus="clearform(this.form)" ID="Text1"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input type="text" name="val2" size="7" onfocus="clearform(this.form)" ID="Text2"></font></td>
+																		<td align="center">
+																			<font color="#FFFFFF">
+																			<input name="button2" type="button" onclick="convertTempform(this.form)" value="Calculate" ID="Button2"></font></td>
+																	</tr>
+																</table>
+														</center>
+													</form>
+													<script language="javascript">
+//set conversion factors for each item in form. document.forms[3].count="4;" 
+document.forms[4].count = 2;
+document.forms[4].rsize=6; 
+													</script>
+												<!-- End: Temperature Conversion -->
+											</td>
+										</tr>
+										<tr>
+											<td class="wwmlist" width="614"><div align="right">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							
+                  </td>
+              </tr>
+            </table></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</BODY>
+</HTML>

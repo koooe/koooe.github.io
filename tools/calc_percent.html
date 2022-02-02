@@ -1,0 +1,608 @@
+<title>  ::: percentage :::  </title>
+
+
+
+<style>
+<!--
+input, select        { font-family: Arial; font-size: 30pt; color: #000080; background-color: #FFFF00;          filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FEFFAF',endColorstr='#D9DC00',gradientType='1');   }
+-->
+</style>
+<script>
+
+
+function round(number,X) 
+	{
+	X = (!X ? 3 : X);
+	return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+	}
+
+
+
+
+function    PER_CAL(){
+
+
+
+  //  a=add, b=base, e=end, pa= print add
+
+/*
+style=5;
+a=1;
+b=1000.1;
+e=200.00;
+*/
+
+
+style=pe.style.value;
+a=pe.a.value;
+b=pe.b.value;
+e=pe.e.value;
+
+
+
+
+
+
+
+
+pa=0;
+i=j=1;
+S1="";
+
+
+
+
+
+
+a/=100;
+
+
+
+
+
+
+
+if(style==1){  print_style1(); }
+if(style==2){  print_style2();  }
+if(style==3){  print_style3(); }
+if(style==4){  print_style4(); }
+if(style==5){  print_style5(); }
+
+
+
+S1+="<title> :: Percentage :: </title>\n\n<table border=1      align=\"center\"    class=\"T1\" >\n<tr>\n";
+S1+="<td    align=\"center\"   class=\"ts1\"> Base </td>\n";
+S1+="<td    align=\"center\"   class=\"ts1\"> Percentage </td>\n";
+S1+="<td    align=\"center\"   class=\"ts1\"> Amount </td>\n</tr>\n\n";
+
+
+// ------------------------------ Loop --------------------------------------------------------
+
+while(e/100>pa)
+	{
+	pa+=a;
+
+
+
+	S1+="<tr   ><td     align=\"center\"      class=\"tb"+j+"\"  >" +round(b,2)+"</td>\n";
+
+	S1+="<td    align=\"center\"   class=\"ta"+j+"\"  >"+round(pa*100,2)+"%</td>\n";
+
+	S1+="<td    align=\"center\"   class=\"tab"+j+"\"  >" +round(pa*b,3)+"</td></tr>\n\n\n";
+	
+
+	if(j++==12)
+		j=1;
+
+	i++;
+	if(i>2000)
+		{
+		pa=e/100+100;
+		}
+
+
+
+	}/*while*/
+
+S1+="</table>";
+
+
+
+
+
+
+
+
+
+if(pe.POP.checked) 
+	{
+	TT=window.open('','','scrollbars=1,resizable=1');
+	TT.document.write(S1);
+	}
+ else
+	{
+	document.write(S1);
+	}
+
+
+
+
+
+
+
+function print_style1(){
+
+
+
+
+S1+="<style >\n\
+\n\
+.ts1{ width:250\;   height:50\;     background-color:#FF003A\;   font-size:22   }\n\
+\n\
+\n\
+\n\
+.tb1,.tb11{  background-color:#95C5FF\;   }\n\
+.tb2,.tb10{  background-color:#81A2FF\;   }\n\
+.tb3,.tb9{  background-color:#6D84FF\;   }\n\
+.tb4,.tb8{  background-color:#5F6AFF\;   }\n\
+.tb5,.tb7{  background-color:#5551FF\;   }\n\
+.tb6{  background-color:#3635FF\;   }\n\
+\n\
+.tb12{  background-color:#AEDCFF\;   }\n\
+\n\
+\n\
+\n\
+\n\
+.ta1,.ta11{  background-color:#FFFF00\;   }\n\
+.ta2,.ta10{  background-color:#FFD900\;   }\n\
+.ta3,.ta9{  background-color:#FCA600\;   }\n\
+.ta4,.ta8{  background-color:#FF7F00\;   }\n\
+.ta5,.ta7{  background-color:#FF5500\;   }\n\
+.ta6{  background-color:#FC3700\;   }\n\
+\n\
+.ta12{  background-color:#FFFF7D\;   }\n\
+\n\
+\n\
+\n\
+.tab1,.tab11{  background-color:#AFFFD8\;   }\n\
+.tab2,.tab10{  background-color:#55FFAC\;   }\n\
+.tab3,.tab9{  background-color:#00FA80\;   }\n\
+.tab4,.tab8{  background-color:#00DC71\;   }\n\
+.tab5,.tab7{  background-color:#00BE61\;   }\n\
+.tab6{  background-color:#00A052\;   }\n\
+\n\
+.tab12{  background-color:#DAFFFF\;   }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+table {\n\
+	border-width: 2px\;\n\
+	border-spacing:1px \;\n\
+	border-style: groove\;\n\
+	border-color: grey\;\n\
+	border-collapse: separate\;\n\
+}\n\
+\n\
+ td {\n\
+	border-width: 1px\;\n\
+	padding: 2px\;\n\
+	border-style: groove\;\n\
+	border-color: gray\;\n\
+}\n\
+\n\
+\n\
+</style >\n\
+\n\
+";
+
+
+
+
+}
+
+
+
+
+
+
+
+function print_style2(){
+
+
+
+
+
+S1+="<style >\n\
+\n\
+.ts1{ width:240\;   height:50\;    font-size:22\;    filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#19FCFF\',endColorstr=\'#5200A0\',gradientType=\'0\')\;       }\n\
+\n\
+\n\
+.tb12{ filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FEFF91\',endColorstr=\'#91FF92\',gradientType=\'1\')\;    }\n\
+\n\
+.tb1,.tb11{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF73\',endColorstr=\'#73FF75\',gradientType=\'1\')\;   }\n\
+.tb2,.tb10{ filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF55\',endColorstr=\'#55FF57\',gradientType=\'1\')\;    }\n\
+.tb3,.tb9{   filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF37\',endColorstr=\'#37FF39\',gradientType=\'1\')\;     }\n\
+.tb4,.tb8{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FCFF19\',endColorstr=\'#19FF1C\',gradientType=\'1\')\;    }\n\
+\n\
+.tb5,.tb7{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#F7FA00\',endColorstr=\'#00FA03\',gradientType=\'1\')\;   }\n\
+.tb6{ filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#F7FA00\',endColorstr=\'#00FA03\',gradientType=\'1\')\;   }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+.ta12{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FEFFCD\',endColorstr=\'#D8AFFF\',gradientType=\'1\')\;    }\n\
+\n\
+.ta1,.ta11{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FEFFAF\',endColorstr=\'#D8AFFF\',gradientType=\'1\')\;    }\n\
+.ta2,.ta10{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FEFF91\',endColorstr=\'#C991FF\',gradientType=\'1\')\;    }\n\
+.ta3,.ta9{   filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF73\',endColorstr=\'#BB73FF\',gradientType=\'1\')\;   }\n\
+.ta4,.ta8{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF55\',endColorstr=\'#AC55FF\',gradientType=\'1\')\;         }\n\
+.ta5,.ta7{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF37\',endColorstr=\'#9D37FF\',gradientType=\'1\')\;    }\n\
+.ta6{ filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FCFF19\',endColorstr=\'#8F19FF\',gradientType=\'1\')\;    }\n\
+\n\
+.tab12{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FEFFCD\',endColorstr=\'#FA7E7E\',gradientType=\'1\')\;    }\n\
+\n\
+.tab1,.tab11{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FEFFAF\',endColorstr=\'#FC6F6F\',gradientType=\'1\')\;    }\n\
+.tab2,.tab10{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FEFF91\',endColorstr=\'#FC6A6A\',gradientType=\'1\')\;    }\n\
+.tab3,.tab9{   filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF73\',endColorstr=\'#FF4848\',gradientType=\'1\')\;   }\n\
+.tab4,.tab8{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF55\',endColorstr=\'#FC2E2E\',gradientType=\'1\')\;         }\n\
+.tab5,.tab7{  filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FDFF37\',endColorstr=\'#FC1F1F\',gradientType=\'1\')\;    }\n\
+.tab6{ filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'#FCFF19\',endColorstr=\'#FC0505\',gradientType=\'1\')\;    }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+.T1 {\n\
+	border-width: 9px\;\n\
+	border-spacing: \;\n\
+	border-style: outset\;\n\
+	border-color: gray\;\n\
+	border-collapse: separate\;\n\
+}\n\
+\n\
+\n\
+ td {\n\
+	border-width: 1px\;\n\
+	padding: 2px\;\n\
+	border-style: outset\;\n\
+	border-color: skyblue\;\n\
+}\n\
+\n\
+\n\
+</style >\n\
+\n\
+\n\
+\n\
+";
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function print_style3(){
+
+S1+="<style >\n\
+\n\
+.ts1{ width:250\;   height:50\;     background-color:#A65554\;   font-size:22   }\n\
+\n\
+\n\
+\n\
+.tb1{  background-color:#DC00D9\;   }\n\
+.tb2{  background-color:#DC006B\;   }\n\
+.tb3{  background-color:#DC0300\;   }\n\
+.tb4{  background-color:#DC7100\;   }\n\
+.tb5{  background-color:#D9DC00\;   }\n\
+.tb6{  background-color:#6BDC00\;   }\n\
+.tb7{  background-color:#00DC03\;   }\n\
+.tb8{  background-color:#00DC71\;   }\n\
+.tb9{  background-color:#00D9DC\;   }\n\
+.tb10{  background-color:#006BDC\;   }\n\
+.tb11{  background-color:#0300DC\;   }\n\
+.tb12{  background-color:#7100DC\;   }\n\
+\n\
+\n\
+\n\
+\n\
+.ta1{  background-color:#9D37FF\;   }\n\
+.ta2{  background-color:#FF37FD\;   }\n\
+.ta3{  background-color:#FF3799\;   }\n\
+.ta4{  background-color:#FF3937\;   }\n\
+.ta5{  background-color:#FF9D37\;   }\n\
+.ta6{  background-color:#FDFF37\;   }\n\
+.ta7{  background-color:#99FF37\;   }\n\
+.ta8{  background-color:#37FF39\;   }\n\
+.ta9{  background-color:#37FF9D\;   }\n\
+.ta10{  background-color:#37FDFF\;   }\n\
+.ta11{  background-color:#3799FF\;   }\n\
+.ta12{  background-color:#3937FF\;   }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+.tab1{  background-color:#7573FF\;   }\n\
+.tab2{  background-color:#BB73FF\;   }\n\
+.tab3{  background-color:#FF73FD\;   }\n\
+.tab4{  background-color:#FF73B7\;   }\n\
+.tab5{  background-color:#FF7573\;   }\n\
+.tab6{  background-color:#FFBB73\;   }\n\
+.tab7{  background-color:#FDFF73\;   }\n\
+.tab8{  background-color:#B7FF73\;   }\n\
+.tab9{  background-color:#73FF75\;   }\n\
+.tab10{  background-color:#73FFBB\;   }\n\
+.tab11{  background-color:#73FDFF\;   }\n\
+.tab12{  background-color:#73B7FF\;   }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+table {\n\
+	border-width: 0px\;\n\
+	border-spacing:4px \;\n\
+}\n\
+\n\
+ td {\n\
+	border-width: 0px\;\n\
+	padding: 4px\;\n\
+}\n\
+\n\
+\n\
+\n\
+\n\
+</style >\n\
+\n\
+\n\
+\n\
+";
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function print_style4(){
+S1+="<style >\n\
+\n\
+.ts1{ width:250\;   height:50\;     background-color:#9D37FF\;   font-size:22   }\n\
+\n\
+\n\
+\n\
+.tb1{  background-color:#EBFFF5\;   }\n\
+.tb2{  background-color:#CDFFE7\;   }\n\
+.tb3{  background-color:#AFFFD8\;   }\n\
+.tb4{  background-color:#91FFC9\;   }\n\
+.tb5{  background-color:#73FFBB\;   }\n\
+.tb6{  background-color:#55FFAC\;   }\n\
+.tb7{  background-color:#37FF9D\;   }\n\
+.tb8{  background-color:#19FF8F\;   }\n\
+.tb9{  background-color:#00FA80\;   }\n\
+.tb10{  background-color:#00DC71\;   }\n\
+.tb11{  background-color:#00BE61\;   }\n\
+.tb12{  background-color:#00A052\;   }\n\
+\n\
+\n\
+\n\
+\n\
+.ta1{  background-color:#EBFFFF\;   }\n\
+.ta2{  background-color:#CDFEFF\;   }\n\
+.ta3{  background-color:#AFFEFF\;   }\n\
+.ta4{  background-color:#91FEFF\;   }\n\
+.ta5{  background-color:#73FDFF\;   }\n\
+.ta6{  background-color:#55FDFF\;   }\n\
+.ta7{  background-color:#37FDFF\;   }\n\
+.ta8{  background-color:#19FCFF\;   }\n\
+.ta9{  background-color:#00F7FA\;   }\n\
+.ta10{  background-color:#00D9DC\;   }\n\
+.ta11{  background-color:#00BCBE\;   }\n\
+.ta12{  background-color:#009EA0\;   }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+.tab1{  background-color:#EBF5FF\;   }\n\
+.tab2{  background-color:#CDE5FF\;   }\n\
+.tab3{  background-color:#AFD6FF\;   }\n\
+.tab4{  background-color:#91C7FF\;   }\n\
+.tab5{  background-color:#73B7FF\;   }\n\
+.tab6{  background-color:#55A8FF\;   }\n\
+.tab7{  background-color:#3799FF\;   }\n\
+.tab8{  background-color:#1989FF\;   }\n\
+.tab9{  background-color:#007AFA \;   }\n\
+.tab10{  background-color:#006BDC\;   }\n\
+.tab11{  background-color:#005DBE\;   }\n\
+.tab12{  background-color:#004EA0\;   }\n\
+\n\
+\n\
+\n\
+body{  background-color:#511789\;   }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+table {\n\
+	border-width: 0px\;\n\
+	border-spacing:4px \;\n\
+}\n\
+\n\
+ td {\n\
+	border-width: 0px\;\n\
+	padding: 4px\;\n\
+}\n\
+\n\
+\n\
+</style >\n\
+\n\
+\n\
+\n\
+";
+
+
+
+
+}
+
+function print_style5(){
+
+
+S1+="<style >\n\
+\n\
+.ts1{ width:250\;   height:50\;     background-color:#F50FD8\;   font-size:22   }\n\
+\n\
+\n\
+\n\
+.tb12{  background-color:#FF9DA0\;   }\n\
+.tb1,.tb11{  background-color:#FF7679\;   }\n\
+.tb2,.tb10{  background-color:#FC585A\;   }\n\
+.tb3,.tb9{  background-color:#FC3136\;   }\n\
+.tb4,.tb8{  background-color:#FF1C21\;   }\n\
+.tb5,.tb7{  background-color:#F70005\;   }\n\
+.tb6{  background-color:#D10005\;   }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+.ta12{  background-color:#E598FF\;   }\n\
+.ta1,.ta11{  background-color:#D874FC\;   }\n\
+.ta2,.ta10{  background-color:#C448F0\;   }\n\
+.ta3,.ta9{  background-color:#B427E5\;   }\n\
+.ta4,.ta8{  background-color:#AA15E0\;   }\n\
+.ta5,.ta7{  background-color:#9D00D3\;   }\n\
+.ta6{  background-color:#8600B4\;   }\n\
+\n\
+\n\
+\n\
+\n\
+.tab12{  background-color:#6A64FA\;   }\n\
+.tab1,.tab11{  background-color:#4B43F5\;   }\n\
+.tab2,.tab10{  background-color:#3934F5\;   }\n\
+.tab3,.tab9{  background-color:#241CF7\;   }\n\
+.tab4,.tab8{  background-color:#150DE8\;   }\n\
+.tab5,.tab7{  background-color:#0D05C6\;   }\n\
+.tab6{  background-color:#0803AD\;   }\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+table {\n\
+	border-width: 4px\;\n\
+	border-style: groove\;\n\
+	border-color: purple\;\n\
+	border-collapse: separate\;\n\
+}\n\
+\n\
+ td {\n\
+	border-width: 2px\;\n\
+	padding: 2px\;\n\
+	border-style: groove\;\n\
+	border-color: black\;\n\
+}\n\
+\n\
+\n\
+</style >\n\
+\n\
+\n\
+";
+
+
+
+
+}
+
+
+
+
+}
+
+
+
+
+
+</script>
+
+
+<body bgcolor="#FF6600"                style="filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr='#DC7100',endColorstr='#FFC991',gradientType='1');   "   >
+<br>
+<p>  ::: Power By Google :::   </p>
+
+<form name="pe" >
+  <!--webbot bot="SaveResults" u-file="fpweb:///_private/form_results.csv" s-format="TEXT/CSV" s-label-fields="TRUE" --><table border="0" cellpadding="3" cellspacing="3" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber1">
+    <tr>
+      <td width="14%"><font size="6">Base </font></td>
+      <td width="86%"><font size="6">
+  <input type="text" name="b" size="20" value="1000"></font></td>
+    </tr>
+    <tr>
+      <td width="14%"><font size="6">Time %</font></td>
+      <td width="86%"><font size="6"> <input type="text" name="a" size="20" value="1"></font></td>
+    </tr>
+    <tr>
+      <td width="14%"><font size="6">Last %</font></td>
+      <td width="86%"><font size="6"> <input type="text" name="e" size="20" value="300"></font></td>
+    </tr>
+    <tr>
+      <td width="14%"><font size="6">Style </font></td>
+      <td width="86%"><font size="6"> <select size="1" name="style">
+  <option selected value="1"    >color1</option>
+   <option selected value="2">color2</option>
+    <option selected value="3">color3</option>
+     <option selected value="4">color4</option>
+      <option selected value="5">color5</option>
+  </select></font></td>
+    </tr>
+    <tr>
+      <td width="14%"><br>
+  <input type="Button" value="Run" name="B1"    onclick="PER_CAL()"   >&nbsp;&nbsp;
+      </td>
+      <td width="86%"><br>
+      <input type="reset" value="Reset" name="B2">&nbsp;&nbsp;&nbsp; Popup
+      <input type="checkbox" name="POP" value="ON"    checked       style="width:30;  height:30;  "   ></td>
+    </tr>
+  </table>
+  <p>
+  <font size="6">&nbsp;<br>
+  &nbsp;&nbsp;&nbsp; &nbsp; </font><br>
+  <br>
+  &nbsp;</p>
+</form>

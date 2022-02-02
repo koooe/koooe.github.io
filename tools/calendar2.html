@@ -1,0 +1,281 @@
+<html>
+<head>
+<title>Calendar</title>
+<meta name="Description" content="Displays a calendar with todays date; flip forward and back in time by months or years.">
+<meta name="Keywords" content="calendar, javascript calendar, current month, month now is">
+<script language="JavaScript">
+
+var setting;
+
+function setToday(){
+  setting = new Date();
+  draw();
+}
+
+function prevMonth(){
+  setting.setDate(1);
+  var month = setting.getMonth();
+  while (month == setting.getMonth()){
+  	setting.setMilliseconds(-86400000);
+  }
+  draw();
+}
+
+function nextMonth(){
+  setting.setDate(28);
+  var month = setting.getMonth();
+  while (month == setting.getMonth()){
+  	setting.setMilliseconds(86400000);
+  }
+  draw();
+}
+
+function prevYear(){
+  setting.setFullYear(setting.getFullYear()-1);
+  draw();
+}
+
+function nextYear(){
+  setting.setFullYear(setting.getFullYear()+1);
+  draw();
+}
+
+function update(){
+  var year = parseInt(document.calendar.year.value);
+  if ((year+'') != 'NaN') setting.setFullYear(year);
+  setting.setMonth(document.calendar.month.selectedIndex);
+  draw();
+}
+
+function draw(){
+  var today = new Date();
+  setting.setDate(1);
+  var year = setting.getFullYear();
+  var month = setting.getMonth();
+  document.calendar.year.value = year;
+  document.calendar.month.selectedIndex = month; 
+  var workingDate = new Date(setting);
+  var subtract = setting.getDay();
+  if (subtract <= 2) subtract += 7;
+  workingDate.setMilliseconds(-subtract*86400000);
+  for(var dayCount=1; dayCount <= 42; dayCount++){
+    var field = eval("document.calendar.day"+dayCount);
+	field.value = workingDate.getDate();
+	var bgcolor = '#bbbbbb';
+	if (workingDate.getMonth() == month){
+	  bgcolor = '#dddddd';
+	}
+	field.style.backgroundColor = bgcolor;
+	if (workingDate.getYear() == today.getYear() &&
+	    workingDate.getMonth() == today.getMonth() && 
+	    workingDate.getDate() == today.getDate()){
+	  field.style.borderColor = '#33ff33';
+	} else {
+	  field.style.borderColor = bgcolor; 
+	}
+	var weekend = (workingDate.getDay() == 0 || workingDate.getDay() == 6);
+	var holiday = false;
+	switch (workingDate.getMonth()){
+	  case 0:{	    
+	    holiday = (
+		  // New Year's Day, January 1st.
+		  (workingDate.getDate() == 1) |
+		  // Birthday of Martin Luther King, third Monday in January.
+		  (workingDate.getFullYear() >= 1986 &&  workingDate.getDay() == 1 && workingDate.getDate() >= 15 && workingDate.getDate() <= 21) |
+	      // Inauguration Day, January 20th every four years, starting in 1957.
+		  (workingDate.getFullYear() >= 1957 && (workingDate.getDate() == 20 && workingDate.getFullYear() % 4) == 1)
+		);
+	  } break;
+	  case 1:{
+	    holiday = (
+		  // Presidents day, third Monday in February since 1971
+		  (workingDate.getFullYear() >= 1971 && workingDate.getDay() == 1 && workingDate.getDate() >= 15 && workingDate.getDate() <= 21) |
+		  // Washington's Birthday, February 22 until 1971
+	      (workingDate.getFullYear() >= 1879 && workingDate.getFullYear() < 1971 && workingDate.getDate() == 22)
+	    );
+	  } break;
+	  case 2:{
+	    holiday = (
+		  // Easter sunday, its complicated.
+		  isEaster(workingDate.getFullYear(), 2, workingDate.getDate())
+	    );
+	  } break;
+	  case 3:{
+	    holiday = (		  
+		  // Easter sunday, its complicated.
+		  isEaster(workingDate.getFullYear(), 3, workingDate.getDate())
+	    );
+	  } break;
+	  case 4:{
+	    holiday = (
+	      // Memorial Day, last Monday in May since 1971; from 1888 to 1970 it was celebrated on May 30, and was called Decoration Day for part of that time.
+		  (workingDate.getFullYear() >= 1971 && workingDate.getDay() == 1 && workingDate.getDate() >= 25) | 
+		  (workingDate.getFullYear() >= 1888 && workingDate.getFullYear() < 1971 && workingDate.getDate() == 30)
+		);
+	  } break;
+	  case 5:{
+	    holiday = (
+          false
+	    );
+	  } break;
+	  case 6:{
+	    holiday = (
+		  // United States of America's Independence Day, July 4, since 1870.
+		  (workingDate.getFullYear() >= 1870 && workingDate.getDate() == 4)
+	    );
+	  } break;
+	  case 7:{
+	    holiday = (
+		  false
+	    );
+	  } break;
+	  case 8:{
+	    holiday = (
+		  // Labor Day, first Monday in September, since 1894.
+		  (workingDate.getFullYear() >= 1894 && workingDate.getDay() == 1 && workingDate.getDate() <= 7)
+	    );
+	  } break;
+	  case 9:{
+	    holiday = (
+		  // Columbus Day, second Monday in October (federal holiday since 1971).		  
+		  (workingDate.getFullYear() >= 1971 && workingDate.getDay() == 1 && workingDate.getDate() >= 8 && workingDate.getDate() <= 14)
+	    );
+	  } break;
+	  case 10:{
+	    holiday = (
+		  // Veterans Day, November 11th (except from 1971 to 1977, inclusive, when it was celebrated on the fourth Monday in October; formerly known as Armistice).
+	      (workingDate.getFullYear() >= 1938 && workingDate.getFullYear() < 1971 && workingDate.getDate() == 11) |
+		  (workingDate.getFullYear() >= 1971 && workingDate.getFullYear() < 1978 && workingDate.getDay() == 1 && workingDate.getDate() >= 22 && workingDate.getDate() <= 28) |
+		  (workingDate.getFullYear() >= 1978 && workingDate.getDate() == 11) |
+		  // Thanksgiving Day, fourth Thursday in November, since 1870.
+		  (workingDate.getFullYear() >= 1870 && workingDate.getDay() == 4 && workingDate.getDate() >= 22 && workingDate.getDate() <= 28)
+	    );
+	  } break;
+	  case 11:{
+	    holiday = (
+		  // Christmas Day, December 25th.
+		  (workingDate.getFullYear() >= 0 && workingDate.getDate() == 25)
+	    );
+	  } break;
+	}
+	if (holiday){
+	  field.style.color = '#cc3333';
+	} else if (weekend){
+	  field.style.color = '#3333cc';
+	} else {	  
+	  field.style.color = 'black';
+	}
+	workingDate.setMilliseconds(86400000);
+  }
+  
+  function isEaster(year, month, day){
+    if (year < 1583) return false;
+	if (year > 2499) return false;
+	var correction = 0;   
+    if     ( year < 1700 ) correction = 4;
+    else if( year < 1800 ) correction = 5;
+    else if( year < 1900 ) correction = 6;
+    else if( year < 2100 ) correction = 0;
+    else if( year < 2200 ) correction = 1;
+    else if( year < 2300 ) correction = 2;
+    else if( year < 2500 ) correction = 3;
+	var targetDay = (19 * (year % 19) + 24) % 30;        
+    targetDay = 22 + targetDay + ((2 * (year % 4) + 4 * (year % 7) + 6 * targetDay + 5 + correction) % 7);
+    var targetMonth = 2;
+	if(targetDay > 31 ) {
+        targetMonth = 3;
+        targetDay -= 31;
+    }
+	return (targetMonth == month && targetDay == day);
+  }
+}
+
+</script>
+<style type="text/css">
+body {
+  background-color:white;
+  color:black;
+  font-family:san-serif;
+  padding:0;
+  margin:.2cm;
+}
+.day {
+  width:1cm;
+  border:thin solid gray;
+}
+.day {
+  text-align:right;
+}
+.weekday {
+  text-align:center;
+}
+.year {
+  width:2cm;
+  text-align:center;
+}
+table.calendar, table.calendar td {
+  border:thin gray ridge;
+  padding:0;
+  margin-bottom:1in;
+  margin-left:auto; 
+  margin-right:auto;
+}	
+table.calendar, .day {  
+  background-color:#ccccff;
+}
+.error{
+  color:red;
+}
+table.calnav, table.calnav td {
+  border:none;
+}
+table.calnav input {
+  font-size:smaller;
+  background-color:#bbbbee;
+  border:thin outset #bbbbee;
+  width:2.5cm;
+}
+</style>
+</head>
+<body onload="setToday();">
+<noscript><p class=error>You must have JavaScript enabled to be able to use this calendar.</noscript>
+<form name=calendar onsubmit="return false;">
+<table class=calendar>
+<tr><th colspan=7>
+<select onchange="update();" name=month>
+<option value=1>January
+<option value=2>February
+<option value=3>March
+<option value=4>April
+<option value=5>May
+<option value=6>June
+<option value=7>July
+<option value=8>August
+<option value=9>September
+<option value=10>October
+<option value=11>November
+<option value=12>December
+</select>
+<input onchange="update();" type=text class=year name=year value=2002>
+</th></tr>
+<tr><td class=weekday>Sun</td><td class=weekday>Mon</td><td class=weekday>Tue</td><td class=weekday>Wed</td><td class=weekday>Thu</td><td class=weekday>Fri</td><td class=weekday>Sat</td></tr>
+<tr><td><input type=text class=day name=day1 readonly></td><td><input type=text class=day name=day2 readonly></td><td><input type=text class=day name=day3 readonly></td><td><input type=text class=day name=day4 readonly></td><td><input type=text class=day name=day5 readonly></td><td><input type=text class=day name=day6 readonly></td><td><input type=text class=day name=day7 readonly></td></tr>
+<tr><td><input type=text class=day name=day8 readonly></td><td><input type=text class=day name=day9 readonly></td><td><input type=text class=day name=day10 readonly></td><td><input type=text class=day name=day11 readonly></td><td><input type=text class=day name=day12 readonly></td><td><input type=text class=day name=day13 readonly></td><td><input type=text class=day name=day14 readonly></td></tr>
+<tr><td><input type=text class=day name=day15 readonly></td><td><input type=text class=day name=day16 readonly></td><td><input type=text class=day name=day17 readonly></td><td><input type=text class=day name=day18 readonly></td><td><input type=text class=day name=day19 readonly></td><td><input type=text class=day name=day20 readonly></td><td><input type=text class=day name=day21 readonly></td></tr>
+<tr><td><input type=text class=day name=day22 readonly></td><td><input type=text class=day name=day23 readonly></td><td><input type=text class=day name=day24 readonly></td><td><input type=text class=day name=day25 readonly></td><td><input type=text class=day name=day26 readonly></td><td><input type=text class=day name=day27 readonly></td><td><input type=text class=day name=day28 readonly></td></tr>
+<tr><td><input type=text class=day name=day29 readonly></td><td><input type=text class=day name=day30 readonly></td><td><input type=text class=day name=day31 readonly></td><td><input type=text class=day name=day32 readonly></td><td><input type=text class=day name=day33 readonly></td><td><input type=text class=day name=day34 readonly></td><td><input type=text class=day name=day35 readonly></td></tr>
+<tr><td><input type=text class=day name=day36 readonly></td><td><input type=text class=day name=day37 readonly></td><td><input type=text class=day name=day38 readonly></td><td><input type=text class=day name=day39 readonly></td><td><input type=text class=day name=day40 readonly></td><td><input type=text class=day name=day41 readonly></td><td><input type=text class=day name=day42 readonly></td></tr>
+<tr><td colspan=7 class=calnav align=center>
+<table class=calnav><tr><td align=right>
+<input type=button onclick="prevMonth();" name=prev value="&lt; month"><br>
+<input type=button onclick="prevYear();" name=prev value="&lt; year">
+</td><td class=now align=center>
+<input type=button onclick="setToday();" name=now value=now>
+</td><td class=next align=left>
+<input type=button onclick="nextMonth();" name=next value="month &gt;"><br>
+<input type=button onclick="nextYear();" name=prev value="year &gt;">
+</td></tr></table>
+</td></tr>
+</table>
+</form>
+

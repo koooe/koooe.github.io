@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<SCRIPT language=JavaScript>
+
+var fontSize = 4;
+var dayBG = "e0ffff";
+var monthBG = "yellow"
+var tableBG = "e0ffff"
+yearMonths = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+weekDays = new Array("S","M","T","W","T","F","S");
+
+function checkYear(){
+xx=1
+}
+
+function getDate() {
+today = new Date();
+month = today.getMonth();
+monthAdjust = month+1
+year = today.getFullYear();
+checkYear()
+//year+=xx
+document.write("<center><table border=1    cellpadding=1   bgcolor=" + tableBG + "><tr><td valign=top>");
+
+	for(var k = 0; k < 12; k++) {
+		monthAdjust-=1;
+		mon=month-monthAdjust;
+		newMonth = new Date(yearMonths[mon]+" 1,"+year);
+		makeCalendar();
+			if ((k==7)||(k==3))document.write('</td></tr><tr><TD valign=top>');
+			else if (k!=11)document.write('</td><td valign=top>');
+			if (k==11)document.write('</td></tr></table>');
+		}
+}
+
+
+
+function makeCalendar(){
+firstDay = newMonth.getDay();
+days = "312831303130313130313031";
+if (year%4==0)	{
+days = days.substring(0, 2) + "29" + days.substring(4, days.length);
+}
+lastDay = eval(days.substring(mon*2, mon*2 + 2));
+
+document.write("<table border=1 cellspacing=1 cellpadding=3" + " BGCOLOR='" + dayBG
++ "'><tr><td align=center COLSPAN=7 height=12 bgcolor='" + monthBG + "'>"
++ "<font SIZE=" + fontSize + ">" + yearMonths[mon] + " " + year + "</font></TD></tr><tr><tr>");
+
+for (var i = 0;i < 7;i ++) {
+document.write("<td align=center >"+"<font SIZE=5 color=blue><b>" + weekDays[i] + "</font></TD>");
+}
+
+document.write("</tr><tr>");
+
+ctr = 0;
+
+for (var i = 0;i < 7; i++){
+	if (i < firstDay) {
+		document.write("<td align=center height=12 bgcolor=" + tableBG + ">"
+		+"<font SIZE=" + fontSize + "> </font>"
+		+"</TD>");
+		}
+	else {
+		ctr++;
+		document.write("<td align=center height=12>"
+		+ "<font SIZE=" + fontSize + ">" + ctr + "</font>"
+		+ "</TD>");
+   		}
+	}
+
+document.write("</tr><tr>");
+
+while (ctr < lastDay) {
+	for (var i = 0;i < 7; i++){
+	ctr++;
+		if (ctr > lastDay){
+		document.write("<td align=center height=12 bgcolor=" + tableBG + "e0ffff>"
+		+ "<font SIZE=" + fontSize + ">" + "  </font></td>");
+		}
+		else {
+		document.write("<td align=center  height=12>"
+		+ "<font SIZE=" + fontSize + ">" + ctr + "</font>" + "</td>");
+		   }
+		}
+	document.write("</tr><tr>");
+}
+document.write("</tr></table></center>");
+}
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+getDate();
+// End -->
+</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY bgcolor=""></BODY></HTML>

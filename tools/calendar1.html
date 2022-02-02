@@ -1,0 +1,109 @@
+<SCRIPT LANGUAGE="JavaScript">
+// This script came from Uncle Jim's Web Designs
+// www.jdstiles.com
+
+function montharray(m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11)
+
+{
+
+   this[0] = m0;
+   this[1] = m1;
+   this[2] = m2;
+   this[3] = m3;
+   this[4] = m4;
+   this[5] = m5;
+   this[6] = m6;
+   this[7] = m7;
+   this[8] = m8;
+   this[9] = m9;
+   this[10] = m10;
+   this[11] = m11;
+}
+
+function MakeArray(n) {this.length = n; return this;}
+  var Days = new MakeArray(7);
+  var Months = new MakeArray(12);
+  Days[1]="Sunday"; Days[2]="Monday"; Days[3]="Tuesday";   Days[4]="Wednesday";
+  Days[5]="Thursday"; Days[6]="Friday"; Days[7]="Saturday";
+  Months[1]="January"; Months[2]="February"; Months[3]="March";   Months[4]="April"; 
+  Months[5]="May"; Months[6]="June"; Months[7]="July";   Months[8]="August"; 
+  Months[9]="September"; Months[10]="October"; Months[11]="November"; 
+  Months[12]="December";
+  function getNiceDate(theDate) {
+  return Days[theDate.getDay()+1] + " " + theDate.getDate() + " " +
+  Months[theDate.getMonth()+1] + " " + theDate.getYear(); }
+function calendar()
+{
+
+   today = new Date();
+   var thisDay;
+   var monthNames = "JanFebMarAprMayJunJulAugSepOctNovDec";
+   var monthNames2 = " 1 2 3 4 5 6 7 8 9101112";
+   var monthDays = new montharray(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+   year = today.getYear() + 1900;
+   thisDay = today.getDate();
+   if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+      monthDays[1] = 29;
+
+   nDays = monthDays[today.getMonth()];
+   firstDay = today;
+   firstDay.setDate(1);
+   var lastMod = new Date();
+   startDay = firstDay.getDay();
+
+   document.write("<TABLE BORDER=\"20\" CELLPADDING=\"9\" align=\"center\" width=\"100%\" height=\"100%\"  >");
+   document.write("<TR bgcolor=\"yellow\"><TH COLSPAN=7><font size=6>");
+   document.write(getNiceDate(lastMod));
+   document.write("<TR bgcolor=\"FF6600\" ><TH><font size=5>Sun<TH><font size=5>Mon<TH><font size=5>Tue<TH><font size=5>Wed<TH><font size=5>Thu<TH><font size=5>Fri<TH><font size=5>Sat");
+   document.write("<TR >");
+   column = 0;
+   for (i=0; i<startDay; i++)
+   {
+
+      document.write("<TH><font size=5>");
+      document.write("<CENTER>");
+      document.write(" ");
+      column++;
+   }
+
+   for (i=1; i<=nDays; i++)
+   {
+
+      document.write("<TH><font size=5>");
+      if (column == 0) 
+         document.write("<FONT COLOR=\"green\">");
+
+      if (column == 6) 
+         document.write("<FONT COLOR=\"#0000FF\">");               
+
+      if (i == thisDay)
+         document.write("<FONT COLOR=\"red\"><blink>");
+        document.write("<CENTER>");
+        document.write(i);
+        document.write("</CENTER>");
+
+      if (i == thisDay)
+         document.write("</blink>")
+
+      if (column == 7||column == 0||i == thisDay) 
+         document.write("</FONT>")
+
+      column++;
+
+      if (column == 7)
+      {
+
+         document.write("<TR>");
+         column = 0;
+
+      }
+   }
+
+   document.write("</TABLE>");
+}
+</SCRIPT>
+
+
+
+<SCRIPT LANGUAGE="JavaScript"> calendar();</SCRIPT>
+

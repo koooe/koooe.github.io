@@ -1,0 +1,167 @@
+<HTML><HEAD>
+<TITLE>base cal</TITLE>
+<META NAME="Keywords" CONTENT="subnet calculator, subnetcalculator, subnets, subnetting, calculater, subnetworking, supernet, route, router, TCP, IP, TCP/IP, IPX/SPX, network, networking tools, resource, resources, java, online, 4, NT, Novell, Windows, 95, 98, guide, document, documents, documentation, install, installing, maintain, maintaining, program, programs, utility, ping, ARP, netbios, netbeui, ICMP, IGMP, UDP, ethernet, support, supporting, lan, wan, service, services, os, operating system, server, servers, trace, workstation, download, downloads, link, links, collection">
+<META NAME="Description" CONTENT="SubnetOnline.com, online network resources, downloads, subnet calculators, online tools, documents, network support forum and much more...">
+<META NAME="Author" CONTENT="iHide Team">
+<SCRIPT LANGUAGE="JavaScript" SRC="mouse.js"></SCRIPT>
+<LINK REL="stylesheet" TYPE="text/css" HREF="/default.css">
+<script language="JavaScript">
+<!-- for wise eyes only
+var hex;
+function MakeArray()
+{
+    this.length = 16;
+    return this;
+}
+function Populate()
+{
+    hex = new MakeArray();
+    hex[1] = "0";    
+    hex[2] = "1";    
+    hex[3] = "2";    
+    hex[4] = "3";    
+    hex[5] = "4";    
+    hex[6] = "5";    
+    hex[7] = "6";    
+    hex[8] = "7";    
+    hex[9] = "8";    
+    hex[10] = "9";    
+    hex[11] = "A";    
+    hex[12] = "B";    
+    hex[13] = "C";    
+    hex[14] = "D";    
+    hex[15] = "E";    
+    hex[16] = "F";    
+}
+function DecimaltoAnother(N, radix)
+{
+    s = "";
+    A = N;
+    while (A >= radix)
+    {
+        B = A % radix;
+        A = Math.floor(A / radix);
+        s += hex[B+1];
+    }
+    s += hex[A+1];
+    return Transpose(s);
+}
+function Transpose(s)
+{
+    N = s.length;
+    t = "";
+    for (i = 0; i < N; i++)
+        t = t + s.substring(N-i-1, N-i);
+    s = t;
+    return s;
+}
+function EvalB(form)
+{
+    if (form.b.value.length != 0)
+        M = parseInt(form.b.value, 2);
+    else
+        M = 0;
+    form.t.value = DecimaltoAnother(M, 3);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.h.value = DecimaltoAnother(M, 16);
+    form.d.value = M;
+}
+
+function EvalT(form)
+{
+    if (form.t.value.length != 0)
+        M = parseInt(form.t.value, 3);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.h.value = DecimaltoAnother(M, 16);
+    form.d.value = M;
+}
+function EvalQ(form)
+{
+    if (form.q.value.length != 0)
+        M = parseInt(form.q.value, 5);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.t.value = DecimaltoAnother(M, 3);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.h.value = DecimaltoAnother(M, 16);
+    form.d.value = M;
+}
+
+function EvalO(form)
+{
+    if (form.o.value.length != 0)
+        M = parseInt(form.o.value, 8);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.t.value = DecimaltoAnother(M, 3);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.h.value = DecimaltoAnother(M, 16);
+    form.d.value = M;
+}
+
+function EvalH(form)
+{
+    if (form.h.value.length != 0)
+        M = parseInt(form.h.value, 16);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.t.value = DecimaltoAnother(M, 3);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.d.value = M;
+}
+function EvalD(form)
+{
+    if (form.d.value.length != 0)
+        M = parseInt(form.d.value, 10);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.t.value = DecimaltoAnother(M, 3);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.h.value = DecimaltoAnother(M, 16);
+}
+//-- done hiding from old browsers -->
+</script>
+</HEAD>
+<BODY bgColor=#FFA824 leftMargin=0 topMargin=0 marginheight="0" marginwidth="0" onload="Populate()">
+
+<TABLE border=0 cellPadding=0 cellSpacing=0 width="300" bordercolor="#000000" >
+<tr><td width="32%" valign="top">
+
+
+<P>
+<form  method="post"><table  border=0 align=center>
+<tr><td align=right><p>Binary:</p></td><td>
+<input name="b" value="0" onkeyup="EvalB(form)" size=25 type="text"     style=" background:skyblue; "   >
+</td></tr>
+<tr><td align=right>Ternary:</td><td>
+<input name="t" value="0" onChange="EvalT(form)" size=25 type="text">
+</td></tr>
+<tr><td align=right>Quintal:</td><td>
+<input name="q" value="0" onChange="EvalQ(form)" size=25 type="text">
+</td></tr>
+<tr><td align=right>Octal:</td><td>
+<input name="o" value="0" onChange="EvalO(form)" size=25 type="text">
+</td></tr>
+<tr><td align=right>Decimal:</td><td>
+<input name="d" value="0" onkeyup="EvalD(form)" size=25 type="text"       style=" background:yellow; "   >
+</td></tr>
+<tr><td align=right>hexadecimal:</td><td>
+<input name="h" value="0" onChange="EvalH(form)" size=25 type="text">
+</td></tr>
+<tr><td align=right></td><td>
+<INPUT TYPE="button" VALUE="Calculate">&nbsp;<INPUT TYPE="reset" VALUE="Reset">
+</td></tr></table></form>
+</P>
+</td></tr></TABLE>
+

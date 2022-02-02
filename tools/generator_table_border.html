@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html><head><title>HTML and CSS Table Border Style Wizard</title><link rel="alternate" type="application/rss+xml" title="Somacon" href="p998.php"><link rel="stylesheet" href="p996.php" type="text/css"><script type="text/javascript" src="p997.php"></script>
+<script type="text/javascript">
+function writeStyleSource()
+{
+	var styleString;
+	var objStyleCodeTextarea;
+
+	objStyleCodeTextarea = document.forms["stylechangeform"].elements["styleSourceCode"];
+
+	if(document.styleSheets == undefined) {
+		styleString = 
+			"/* Cannot show source because your browser does not \n"+
+			" * support the document.styleSheets collection. \n"+
+			" * Here is the default style sheet. */\n\n";
+		styleString += "table.sample {\n"+
+	"	border: 1px outset gray;\n"+
+	"	border-collapse: separate;\n"+
+	"	border-spacing: 2px;\n"+
+	"	background-color: white;\n"+
+	"}\n"+
+	"table.sample th {\n"+
+	"	border: 1px inset gray;\n"+
+	"	padding: 1px;\n"+
+	"	background-color: white;\n"+
+	"	-moz-border-radius: 0px;\n"+
+	"}\n"+
+	"table.sample td {\n"+
+	"	border: 1px inset gray;\n"+
+	"	padding: 1px;\n"+
+	"	-moz-border-radius: 0px;\n"+
+	"}";
+		objStyleCodeTextarea.value = styleString;
+		return;
+	}
+
+	styleString = "<style type=\"text/css\">\n";
+	styleString += "table.sample {\n"+
+		"\tborder-width: "+getStyle(/table.sample$/i, 'borderWidth')+";\n"+
+		"\tborder-spacing: "+getStyle(/table.sample$/i, 'borderSpacing')+";\n"+
+		"\tborder-style: "+getStyle(/table.sample$/i, 'borderStyle')+";\n"+
+		"\tborder-color: "+getStyle(/table.sample$/i, 'borderColor')+";\n"+
+		"\tborder-collapse: "+getStyle(/table.sample$/i, 'borderCollapse')+";\n"+
+		"\tbackground-color: "+getStyle(/table.sample$/i, 'backgroundColor')+";\n"+
+		"}\n"+
+		"table.sample th {\n"+
+		"\tborder-width: "+getStyle(/table.sample t.$/i, 'borderWidth')+";\n"+
+
+		"\tpadding: "+getStyle(/table.sample t.$/i, 'padding')+";\n"+
+		"\tborder-style: "+getStyle(/table.sample t.$/i, 'borderStyle')+";\n"+
+		"\tborder-color: "+getStyle(/table.sample t.$/i, 'borderColor')+";\n"+
+		"\tbackground-color: "+getStyle(/table.sample t.$/i, 'backgroundColor')+";\n"+
+		"\t-moz-border-radius: "+getStyle(/table.sample t.$/i, 'MozBorderRadius')+";\n"+
+		"}\n"+
+		"table.sample td {\n"+
+		"\tborder-width: "+getStyle(/table.sample t.$/i, 'borderWidth')+";\n"+
+		"\tpadding: "+getStyle(/table.sample t.$/i, 'padding')+";\n"+
+		"\tborder-style: "+getStyle(/table.sample t.$/i, 'borderStyle')+";\n"+
+		"\tborder-color: "+getStyle(/table.sample t.$/i, 'borderColor')+";\n"+
+		"\tbackground-color: "+getStyle(/table.sample t.$/i, 'backgroundColor')+";\n"+
+		"\t-moz-border-radius: "+getStyle(/table.sample t.$/i, 'MozBorderRadius')+";\n"+
+		"}\n";
+	styleString += "</style>";
+	styleString += "\n\n";	
+
+	
+	objStyleCodeTextarea.value = styleString;
+}
+// toggle a button to simulate radio type buttons
+function toggleButton(elementObj, idRegex) {
+	var arraySpans = document.body.getElementsByTagName("SPAN");
+	
+	for(var i = 0; i < arraySpans.length; i++)
+	{
+		if(arraySpans[i].id.match(idRegex))
+		{
+			arraySpans[i].className = 'raised';
+		}
+	}
+	elementObj.className = 'depressed';
+}
+
+// Change the given style property of the given 
+// selector to the new style value
+function changeStyle(selectorRegex, styleProperty, newStyle)
+{
+	var numRules, sheetIndex;
+
+	if(!document.styleSheets) {
+		return;
+	}
+
+	sheetIndex = 1;
+	numRules = getRulesObject(sheetIndex).length;
+
+	for(var i = 0; i < numRules; i++)
+	{
+		if(getRulesObject(sheetIndex)[i].selectorText.match(selectorRegex))
+		{
+			if(eval("getRulesObject(sheetIndex)[i].style."+styleProperty) != undefined)
+			{
+				eval("getRulesObject(sheetIndex)[i].style."+styleProperty+" = '"+newStyle+"'");
+			}
+		}
+	}
+	writeStyleSource();
+}
+
+// Get the style property of the given selector
+function getStyle(selectorRegex, styleProperty)
+{
+	var numRules, sheetIndex;
+
+	if(!document.styleSheets) {
+		return;
+	}
+
+	sheetIndex = 1;
+	numRules = getRulesObject(sheetIndex).length;
+
+	for(var i = 0; i < numRules; i++)
+	{
+		if(getRulesObject(sheetIndex)[i].selectorText.match(selectorRegex))
+		{
+			if(eval("getRulesObject(sheetIndex)[i].style."+styleProperty) != undefined)
+			{
+				return eval("getRulesObject(sheetIndex)[i].style."+styleProperty);
+			}
+		}
+	}
+	return "";
+}
+
+// This is a cross-browser function to return the rules object
+// of the style sheet identified by the integer index.
+// The styleSheets object exists in IE 4, NN 6, and DOM2 browsers,
+function getRulesObject(sheetIndex)
+{
+	if(document.styleSheets)
+	{
+		if(document.styleSheets[sheetIndex].cssRules)
+			return document.styleSheets[sheetIndex].cssRules;
+		else if (document.styleSheets[sheetIndex].rules)
+			return document.styleSheets[sheetIndex].rules;
+	}
+}
+</script>
+<style type="text/css">
+table.sample {
+	border: 1px outset gray;
+	border-collapse: separate;
+	border-spacing: 2px;
+	background-color: white;
+}
+table.sample th {
+	border: 1px inset gray;
+	padding: 1px;
+	background-color: white;
+	-moz-border-radius: 0px;
+}
+table.sample td {
+	border: 1px inset gray;
+	padding: 1px;
+	-moz-border-radius: 0px;
+}span.depressed {
+	border-style: inset;
+	border-width: 1px;
+	border-color: #CCCCCC;
+	color: black;
+	background-color: #E4E3DC;
+	-moz-border-radius: 5px;
+	padding: 1px 4px 1px 4px;
+	line-height: 1.4em;
+}
+span.raised {
+	border-style: outset;
+	border-width: 1px;
+	border-color: #CCCCCC;
+	color: black;
+	background-color: #F3F3EE;
+	-moz-border-radius: 5px;
+	padding: 1px 4px 1px 4px;
+	line-height: 1.4em;
+}
+span.depressed:hover {
+	cursor: pointer;
+	cursor: hand;
+	background-color: #FFFF00;
+}
+span.raised:hover {
+	cursor: pointer;
+	cursor: hand;
+	background-color: #FFFF00;
+}
+
+</style>
+</head>
+
+<form method="get" action="table_display.php" onsubmit="return false;" name="stylechangeform">
+
+<table>
+<tr>
+	<th bgcolor="#33CCFF" colspan="2">TABLE</th>
+</tr>
+<tr>
+	<td>border-width (px)</td>
+	<td>
+	 <span id="tableBorderWidth0" class="depressed" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '1px');">1</span> 
+        <span id="tableBorderWidth1" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '2px');">2</span> 
+       <span id="tableBorderWidth2" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '3px');">3</span> 
+       <span id="tableBorderWidth3" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '4px');">4</span> 
+	 <span id="tableBorderWidth4" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '5px');">5</span> 
+	 <span id="tableBorderWidth4" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '6px');">6</span>
+	 <span id="tableBorderWidth4" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '7px');">7</span>
+	 <span id="tableBorderWidth4" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '8px');">8</span>
+	 <span id="tableBorderWidth4" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '9px');">9</span>
+	 <span id="tableBorderWidth4" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '10px');">10</span>
+	 <span id="tableBorderWidth4" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '11px');">11</span>
+	 <span id="tableBorderWidth4" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '12px');">12</span>
+	 
+	 
+	 
+	 <span id="tableBorderWidth5" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', 'thin');">thin</span>
+	  <span id="tableBorderWidth6" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', 'medium');">medium</span> <span id="tableBorderWidth7" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', 'thick');">thick</span> <span id="tableBorderWidth8" class="raised" onclick="toggleButton(this, /tableBorderWidth/i);changeStyle(/table.sample$/i, 'borderWidth', '0px');">0px</span>	</td>
+</tr>
+<tr>
+	<td>border-spacing</th>
+	<td>
+	 <span id="tableBorderSpacing0" class="depressed" onclick="toggleButton(this, /tableBorderSpacing/i);changeStyle(/table.sample$/i, 'borderSpacing', '2px');">2px</span> <span id="tableBorderSpacing1" class="raised" onclick="toggleButton(this, /tableBorderSpacing/i);changeStyle(/table.sample$/i, 'borderSpacing', '1px');">1px</span> <span id="tableBorderSpacing2" class="raised" onclick="toggleButton(this, /tableBorderSpacing/i);changeStyle(/table.sample$/i, 'borderSpacing', '3px');">3px</span> <span id="tableBorderSpacing3" class="raised" onclick="toggleButton(this, /tableBorderSpacing/i);changeStyle(/table.sample$/i, 'borderSpacing', '4px');">4px</span> <span id="tableBorderSpacing4" class="raised" onclick="toggleButton(this, /tableBorderSpacing/i);changeStyle(/table.sample$/i, 'borderSpacing', '5px');">5px</span> <span id="tableBorderSpacing5" class="raised" onclick="toggleButton(this, /tableBorderSpacing/i);changeStyle(/table.sample$/i, 'borderSpacing', '0px');">0px</span>	</td>
+</tr>
+<tr>
+	<td>border-style</td>
+	<td>
+	 <span id="tableBorderStyle0" class="depressed" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'outset');">outset</span> <span id="tableBorderStyle1" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'none');">none</span> <span id="tableBorderStyle2" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'hidden');">hidden</span> <span id="tableBorderStyle3" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'dotted');">dotted</span> <span id="tableBorderStyle4" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'dashed');">dashed</span> <span id="tableBorderStyle5" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'solid');">solid</span> <span id="tableBorderStyle6" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'double');">double</span> <span id="tableBorderStyle7" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'ridge');">ridge</span> <span id="tableBorderStyle8" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'groove');">groove</span> <span id="tableBorderStyle9" class="raised" onclick="toggleButton(this, /tableBorderStyle/i);changeStyle(/table.sample$/i, 'borderStyle', 'inset');">inset</span>	</td>
+</tr>
+<tr>
+	<td>border-color</td>
+	<td>
+	 <span id="tableBorderColor0" class="depressed" onclick="toggleButton(this, /tableBorderColor/i);changeStyle(/table.sample$/i, 'borderColor', 'gray');">gray</span> <span id="tableBorderColor1" class="raised" onclick="toggleButton(this, /tableBorderColor/i);changeStyle(/table.sample$/i, 'borderColor', 'white');">white</span> <span id="tableBorderColor2" class="raised" onclick="toggleButton(this, /tableBorderColor/i);changeStyle(/table.sample$/i, 'borderColor', 'blue');">blue</span> <span id="tableBorderColor3" class="raised" onclick="toggleButton(this, /tableBorderColor/i);changeStyle(/table.sample$/i, 'borderColor', 'green');">green</span> <span id="tableBorderColor4" class="raised" onclick="toggleButton(this, /tableBorderColor/i);changeStyle(/table.sample$/i, 'borderColor', 'black');">black</span> <span id="tableBorderColor5" class="raised" onclick="toggleButton(this, /tableBorderColor/i);changeStyle(/table.sample$/i, 'borderColor', 'red');">red</span> <span id="tableBorderColor6" class="raised" onclick="toggleButton(this, /tableBorderColor/i);changeStyle(/table.sample$/i, 'borderColor', ''+document.forms[0].tableBorderColorCustom.value+'');">custom:</span>	<input type="text" name="tableBorderColorCustom" size="17" maxlength="17">
+	</td>
+</tr>
+<tr>
+	<td>border-collapse</td>
+	<td>
+	 <span id="tableBorderCollapse0" class="depressed" onclick="toggleButton(this, /tableBorderCollapse/i);changeStyle(/table.sample$/i, 'borderCollapse', 'separate');">separate</span> <span id="tableBorderCollapse1" class="raised" onclick="toggleButton(this, /tableBorderCollapse/i);changeStyle(/table.sample$/i, 'borderCollapse', 'collapse');">collapse</span>	</td>
+</tr>
+<tr>
+	<td>background-color</td>
+	<td>
+	 <span id="tableBackgroundColor0" class="depressed" onclick="toggleButton(this, /tableBackgroundColor/i);changeStyle(/table.sample$/i, 'backgroundColor', 'white');">white</span> <span id="tableBackgroundColor1" class="raised" onclick="toggleButton(this, /tableBackgroundColor/i);changeStyle(/table.sample$/i, 'backgroundColor', '#FFFFF0');">#FFFFF0</span> <span id="tableBackgroundColor2" class="raised" onclick="toggleButton(this, /tableBackgroundColor/i);changeStyle(/table.sample$/i, 'backgroundColor', '#FAF0E6');">#FAF0E6</span> <span id="tableBackgroundColor3" class="raised" onclick="toggleButton(this, /tableBackgroundColor/i);changeStyle(/table.sample$/i, 'backgroundColor', '#FFF5EE');">#FFF5EE</span> <span id="tableBackgroundColor4" class="raised" onclick="toggleButton(this, /tableBackgroundColor/i);changeStyle(/table.sample$/i, 'backgroundColor', '#FFFAFA');">#FFFAFA</span> <span id="tableBackgroundColor5" class="raised" onclick="toggleButton(this, /tableBackgroundColor/i);changeStyle(/table.sample$/i, 'backgroundColor', ''+document.forms[0].tableBackgroundColorCustom.value+'');">custom:</span>	<input type="text" name="tableBackgroundColorCustom" size="17" maxlength="17">
+	</td>
+</tr>
+<tr>
+	<th bgcolor="#00FFFF" colspan="2">TD/TH</th>
+</tr>
+<tr>
+	<td>border-width (px)</td>
+	<td>
+	 <span id="tdBorderWidth0" class="depressed" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '1px');">1</span>
+ <span id="tdBorderWidth1" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '2px');">2</span> 
+<span id="tdBorderWidth2" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '3px');">3</span>
+ <span id="tdBorderWidth3" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '4px');">4</span> 
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '5px');">5</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '6px');">6</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '7px');">7</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '8px');">8</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '9px');">9</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '10px');">10</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '11px');">11</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '12px');">12</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '13px');">13</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '14px');">14</span>
+<span id="tdBorderWidth4" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '15px');">15</span>
+ <span id="tdBorderWidth5" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', 'thin');">thin</span> <span id="tdBorderWidth6" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', 'medium');">medium</span> <span id="tdBorderWidth7" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', 'thick');">thick</span> <span id="tdBorderWidth8" class="raised" onclick="toggleButton(this, /tdBorderWidth/i);changeStyle(/table.sample t.$/i, 'borderWidth', '0px');">0px</span>	</td>
+</tr>
+<tr>
+	<td>padding</td>
+	<td>
+      <span id="tdPadding5" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '0px');">0px</span>	
+	 <span id="tdPadding0" class="depressed" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '1px');">1px</span> <span id="tdPadding1" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '2px');">2px</span> <span id="tdPadding2" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '3px');">3px</span> <span id="tdPadding3" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '4px');">4px</span> <span id="tdPadding4" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '5px');">5px</span>
+      <span id="tdPadding5" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '6px');">6px</span>	
+      <span id="tdPadding5" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '7px');">7px</span>	
+      <span id="tdPadding5" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '8px');">8px</span>	
+      <span id="tdPadding5" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '9px');">9px</span>	
+      <span id="tdPadding5" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '10px');">10px</span>	
+      <span id="tdPadding5" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '11px');">11px</span>	
+      <span id="tdPadding5" class="raised" onclick="toggleButton(this, /tdPadding/i);changeStyle(/table.sample t.$/i, 'padding', '12px');">12px</span>	
+</td>
+</tr>
+<tr>
+	<td>border-style</td>
+	<td>
+	 <span id="tdBorderStyle0" class="depressed" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'inset');">inset</span> <span id="tdBorderStyle1" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'none');">none</span> <span id="tdBorderStyle2" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'hidden');">hidden</span> <span id="tdBorderStyle3" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'dotted');">dotted</span> <span id="tdBorderStyle4" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'dashed');">dashed</span> <span id="tdBorderStyle5" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'solid');">solid</span> <span id="tdBorderStyle6" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'double');">double</span> <span id="tdBorderStyle7" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'ridge');">ridge</span> <span id="tdBorderStyle8" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'groove');">groove</span> <span id="tdBorderStyle9" class="raised" onclick="toggleButton(this, /tdBorderStyle/i);changeStyle(/table.sample t.$/i, 'borderStyle', 'outset');">outset</span>	</td>
+</tr>
+<tr>
+	<td>border-color</td>
+	<td>
+	 <span id="tdBorderColor0" class="depressed" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'gray');">gray</span> 
+	 <span id="tdBorderColor0" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'yellow');">yellow</span> 
+	 <span id="tdBorderColor0" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'lime');">lime</span> 
+	 <span id="tdBorderColor0" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'skyblue');">skyblue</span> 
+<span id="tdBorderColor1" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'white');">white</span> <span id="tdBorderColor2" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'blue');">blue</span> <span id="tdBorderColor3" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'green');">green</span> <span id="tdBorderColor4" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'black');">black</span> <span id="tdBorderColor5" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', 'red');">red</span> <span id="tdBorderColor6" class="raised" onclick="toggleButton(this, /tdBorderColor/i);changeStyle(/table.sample t.$/i, 'borderColor', ''+document.forms[0].tdBorderColorCustom.value+'');">custom:</span>	<input type="text" name="tdBorderColorCustom" size="17" maxlength="17">
+	</td>
+</tr>
+<tr>
+	<td>background-color</td>
+	<td>
+	 <span id="tdBackgroundColor0" class="depressed" onclick="toggleButton(this, /tdBackgroundColor/i);changeStyle(/table.sample t.$/i, 'backgroundColor', 'white');">white</span> 
+	 <span id="tdBackgroundColor0" class="raised" onclick="toggleButton(this, /tdBackgroundColor/i);changeStyle(/table.sample t.$/i, 'backgroundColor', 'yellow');">yellow</span> 
+	 <span id="tdBackgroundColor0" class="raised" onclick="toggleButton(this, /tdBackgroundColor/i);changeStyle(/table.sample t.$/i, 'backgroundColor', 'red');">red</span> 
+	 <span id="tdBackgroundColor0" class="raised" onclick="toggleButton(this, /tdBackgroundColor/i);changeStyle(/table.sample t.$/i, 'backgroundColor', 'blue');">blue</span> 
+	 <span id="tdBackgroundColor0" class="raised" onclick="toggleButton(this, /tdBackgroundColor/i);changeStyle(/table.sample t.$/i, 'backgroundColor', 'skyblue');">skyblue</span> 
+	 <span id="tdBackgroundColor0" class="raised" onclick="toggleButton(this, /tdBackgroundColor/i);changeStyle(/table.sample t.$/i, 'backgroundColor', 'orange');">orange</span> 
+ <span id="tdBackgroundColor5" class="raised" onclick="toggleButton(this, /tdBackgroundColor/i);changeStyle(/table.sample t.$/i, 'backgroundColor', ''+document.forms[0].tdBackgroundColorCustom.value+'');">custom:</span>	<input type="text" name="tdBackgroundColorCustom" size="17" maxlength="17">
+	</td>
+</tr>
+<tr>
+	<td>-moz-border-radius</td>
+	<td>
+	 <span id="tdBorderRadius0" class="depressed" onclick="toggleButton(this, /tdBorderRadius/i);changeStyle(/table.sample t.$/i, 'MozBorderRadius', '0px');">0px</span> <span id="tdBorderRadius1" class="raised" onclick="toggleButton(this, /tdBorderRadius/i);changeStyle(/table.sample t.$/i, 'MozBorderRadius', '3px');">3px</span> <span id="tdBorderRadius2" class="raised" onclick="toggleButton(this, /tdBorderRadius/i);changeStyle(/table.sample t.$/i, 'MozBorderRadius', '6px');">6px</span> <span id="tdBorderRadius3" class="raised" onclick="toggleButton(this, /tdBorderRadius/i);changeStyle(/table.sample t.$/i, 'MozBorderRadius', '9px');">9px</span> <span id="tdBorderRadius4" class="raised" onclick="toggleButton(this, /tdBorderRadius/i);changeStyle(/table.sample t.$/i, 'MozBorderRadius', '12px');">12px</span>	</td>
+</tr>
+</table>
+
+<div align="left" style="width: 985; height: 349">
+
+<br>
+  <table     border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="714" height="171" id="AutoNumber1">
+    <tr>
+      <td width="410"    valign="up"   height="171">
+      
+      
+	<center>
+
+	<table class="sample"   >
+	<tr><th>January</th><th>February</th></tr>
+	<tr><td>apples</td><td align="right">$15.34</td></tr>
+	<tr><td>oranges</td><td align="right">$12.98</td></tr>
+	</table>
+	</center>
+        </td>
+      <td width="335" height="171">
+<textarea cols="51" rows="20" name="styleSourceCode" style="background-color:#33CCFF;color:#000080;font-family:Arial">
+</textarea></td>
+    </tr>
+  </table>
+</div>
+<br>
+<br>
+<br>
+
+<br>
+
+
+
+<p>
+&nbsp;</form>
+
+
+
+</html>

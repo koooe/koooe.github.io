@@ -1,0 +1,47 @@
+<body bgcolor="#00FF00">
+
+<form name="bandwidth">
+
+  <p><input type="text" name="original" size="20" value=1024      onkeyup="calculate()"    >
+   <select size="1" name="units"  onchange="calculate()"     >
+    <option value="Bytes">Bytes</option>
+    <option value="Kb">Kb</option>
+    <option value="Mb">Mb</option>
+    <option value="Gb">Gb</option>
+  </select> 
+<input type="button" value="    Calculate    " name="B1" onClick="calculate()"></p>
+<textarea name="show" cols=31  rows=9 style="font-size: 18pt; font-family: Arial; color: #008000">
+
+</textarea>
+
+</form>
+
+<p>
+
+<script>
+
+
+
+var bytevalue=0
+function calculate(){
+var invalue=document.bandwidth.original.value
+var selectunit=document.bandwidth.units.options[document.bandwidth.units.selectedIndex].value
+if (selectunit=="Bytes")
+bytevalue=invalue
+else if (selectunit=="Kb")
+bytevalue=invalue*1024
+else if (selectunit=="Mb")
+bytevalue=invalue*1024*1024
+else if (selectunit=="Gb")
+bytevalue=invalue*1024*1024*1024
+
+//alert (invalue+" "+selectunit+" is equal to:\n\n- "+bytevalue+" Bytes\n- "+Math.round(bytevalue/1024)+" Kb\n- "+Math.round(bytevalue/1024/1024)+" Mb\n- "+Math.round(bytevalue/1024/1024/1024)+" Gb\n")
+
+
+bandwidth.show.value=invalue+" "+selectunit+" is equal to:\n\n- "+bytevalue+" Bytes\n- "+Math.round(bytevalue/1024)+" Kb\n- "+Math.round(bytevalue/1024/1024)+" Mb\n- "+Math.round(bytevalue/1024/1024/1024)+" Gb\n";
+
+
+
+}
+
+</script>

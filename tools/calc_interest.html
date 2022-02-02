@@ -1,0 +1,448 @@
+<html>
+<head>
+
+
+
+
+<title>::: interest ::: </title>
+
+<script>
+
+function round(number,X) 
+	{
+	X = (!X ? 4 : X);
+	return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+	}
+
+
+function shake(n) {   n=3;   /* n= shake how many time   */         if (parent.moveBy) {for (i = 10; i > 0; i--) {for (j = n; j > 0; j--) {parent.moveBy(0,i); parent.moveBy(i,0); parent.moveBy(0,-i); parent.moveBy(-i,0);}}}} 
+
+
+
+
+function X(){
+
+
+
+
+
+/*
+p=1000;
+r=1; 
+add_ra=0.2;
+max=120;
+max_rows=20;
+term="m";
+
+*/
+
+
+simple="n";
+
+
+
+fs=fp.fs.value*1;
+p=fp.p.value*1;
+r=fp.r.value*1;
+add_ra=fp.add_ra.value*1;
+max=fp.max.value;
+max_rows=fp.max_rows.value*1;
+
+
+if(fp.term[0].checked){ term="y"; }
+if(fp.term[1].checked){ term="m"; }
+
+if(fp.simple[1].checked){ simple="y"; }
+
+
+
+
+
+
+
+// ----------------------------- css font size ---------------------------------------------------------------
+
+
+S1="<style>    .per{ font-size: "+fs+"\;   } </style>\n";
+
+
+
+if(term=="y")
+	S1+="<style> .per{ font-family: Arial } </style>\n";
+
+// ----------------------------------------------------------- end input -----------------------------------------------------------
+
+cc=1;
+mo=1;
+r*=0.01;
+
+
+
+
+
+if(term=="m") {  r/=12;  }
+
+
+
+S1+="<table    class=\"per\"   cellpadding=3   border=3  style=\"border-collapse: collapse\"   bordercolor=#111111   >\n";
+
+
+
+if(term=="m") 
+	{
+// -----------------------------------  First row  ----------------------------------------------
+
+	S1+="<tr bgcolor=#5D58EA   ><td><b>&nbsp\;&nbsp\;Year&nbsp\;&nbsp\;</td>\n";
+
+
+	for(i=1; i<=max; i++)
+		{
+		
+		
+		if(mo%2){  fc1="2E4DFC";     fc2="001798";  }else{ fc1="0AD308";     fc2="057E03";   }
+
+
+		S1+="<td  align=center    style=\"filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=\'#"+fc1+"\',EndColorStr=\'#"+fc2+"\')\;  \"     ><b>"+mo+" </td>";
+		if((i%12) == 0){ mo++ };
+		}
+
+	S1+="</tr>\n";
+
+	mo=1;
+	p_m="dog";
+
+
+// -----------------------------------  Second row  ----------------------------------------------
+
+	S1+="<tr bgcolor=#39E0DE             ><td><b>&nbsp\;&nbsp\;Month&nbsp\;&nbsp\;</td>";
+	j=1;
+
+	for(i=1; i<=max; i++)
+		{
+		p_m=p_month(mo);
+		
+
+		if(j>12){  fc1="AAFFA0";     fc2="12A500";  }else{ fc1="6FF0F7";     fc2="0095A0";   }
+		j++;  if(j>24){ j=1; }
+
+
+		S1+="<td  align=center    style=\"filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=\'#"+fc1+"\',EndColorStr=\'#"+fc2+"\')\;  \"     ><b>"+p_m+" </td>";
+		mo++;
+		if(mo>12){ mo=1};
+		}
+
+	S1+="</tr>\n";
+	}
+
+
+// -----------------------------------  Third row  ----------------------------------------------
+
+S1+="<tr   bgcolor=red   ><td  ><b>&nbsp\;&nbsp\;$"+p+"&nbsp\;&nbsp\;</td>";
+cc=1;
+fc1="FCFF00";     fc2="FF000D";  
+for(i=1; i<=max; i++)
+	{
+	if(term=="y")
+		{
+		c1=cc_color1(cc);
+		cc++;
+		if(cc>8){ cc=1; }
+		 S1+="<td   bgcolor="+c1+"   align=center   ><b>"+i+" </td>";  
+		}
+	if(term=="m")
+		{  
+		S1+="<td  align=center    style=\"filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=\'#"+fc1+"\',EndColorStr=\'#"+fc2+"\')\;  \"     ><b>"+i+" </td>";
+		}
+
+
+	}
+
+S1+="</tr>\n";
+
+
+// ---------------------------------------------------------------------------  Fourth row ------------------------
+
+c2="#31F2DE";
+cc=1;
+gc=1;
+
+for(j=1; j<=max_rows; j++)
+	{
+
+	pr=r*100;
+	if(term=="m") {  pr*=12;  }
+
+	pr=round(pr);
+	b=p;   // balance
+	q=p;
+
+	c1=cc_color1(gc);
+	gc++;
+	if(gc>8){ gc=1; }
+
+	S1+="<tr>\n";
+	S1+="<td   align=center    bgcolor="+c1+"  ><b>"+pr+"% </td>";
+
+	cc=1;
+	for(i=1; i<=max; i++)
+		{
+
+		if(term=="y")
+			{
+			c2=cc_color2(cc);
+			cc++;
+			if(cc>8){ cc=1; }
+			}
+			
+		if(term=="m")
+			{
+			//if( cc < 13 ){ c2="#F0C60F"; } else { c2="#CB86F5"; }
+
+			c2=cc_color3(cc);
+
+			cc++;
+			if(cc>24){ cc=1; }
+			}
+
+
+		if(term=="m")
+			{
+			b=(q*r)+b;
+
+			if(simple !="y")
+				{
+				if((i%12) == 0) {  q=b; }
+				}
+			}
+
+
+
+		if(term=="y")
+			{ 
+			if(simple =="y")
+				b=(q*r)+b; 
+			else
+				b=(b*r)+b; 
+			 }
+
+
+
+		b=round(b);
+		S1+="<td   bgcolor="+c2+"  >"+b+"</td>";
+		}
+
+	S1+="</tr>\n";
+
+	if(term=="m"){ r+=add_ra/100/12; }
+	if(term=="y"){ r+=add_ra/100; }
+
+	}
+
+
+S1+="\n\n</table >";
+
+
+
+
+
+
+if(fp.pop.checked) 
+	{
+	TT=window.open('','','scrollbars=1,resizable=1');
+	TT.document.write(S1);
+	}
+ else
+	{
+	document.write(S1);
+	}
+
+}
+
+
+// ------------------------------------------------------------------ End Function ----------------------------------------------------------------
+
+
+function p_month(mo){
+
+switch(mo){
+	case 1:    pm="Jan";  break;
+	case 2:    pm="Feb"; break;
+	case 3:    pm="Mar"; break;
+	case 4:    pm="Apr"; break;
+	case 5:    pm="May"; break;
+	case 6:    pm="Jun"; break;
+	case 7:    pm="Jul"; break;
+	case 8:    pm="Aug"; break;
+	case 9:    pm="Sep"; break;
+	case 10:    pm="Oct"; break;
+	case 11:    pm="Nov"; break;
+	case 12:    pm="Dec"; break;
+}
+
+return pm;
+
+}
+
+
+
+
+function cc_color2(cc)
+	{
+	if(cc==1) {     c2="66FFFF";  }
+	if(cc==2) {     c2="66CCFF";   }
+	if(cc==3) {     c2="6699FF"; }
+	if(cc==4) {     c2="6666FF";   }
+	if(cc==5) {    c2="6633FF";   }
+	if(cc==6) {     c2="6666FF";   }
+	if(cc==7) {     c2="6699FF"; }
+	if(cc==8) {     c2="66CCFF";   }
+
+	return c2;
+	}
+
+
+function cc_color1(cc)
+	{
+	if(cc==1) {  c1="FFFF00";     }
+	if(cc==2) {  c1="FFCC00";     }
+	if(cc==3) {  c1="FF9900";   }
+	if(cc==4) {  c1="FF6600";     }
+	if(cc==5) {  c1="FF3300";    }
+	if(cc==6) {  c1="FF6600";    }
+	if(cc==7) {  c1="FF9900";  }
+	if(cc==8) {  c1="FFCC00";   }
+
+	return c1;
+	}
+
+
+function cc_color3(cc)
+	{
+	c2="lime";
+
+	if(cc==1  ||  cc==12 ) {     c2="#F7DB6F";   }
+	if(cc==2  ||  cc==11 ) {     c2="#F7D65A"; }
+	if(cc==3  ||  cc==10) {     c2="#FAD340";   }
+	if(cc==4  ||  cc==9) {    c2="#FCD129";   }
+	if(cc==5  ||  cc==8) {     c2="FCC90A";   }
+	if(cc==6  ||   cc== 7) {     c2="#F5C100";   }
+
+
+	if(cc==13  ||  cc==24 ) {     c2="#E88BFF";   }
+	if(cc==14  ||  cc==23 ) {     c2="#DE62FF"; }
+	if(cc==15  ||  cc==22) {     c2="#D340FA";   }
+	if(cc==16  ||  cc==21) {     c2="#CE31F7";   }
+	if(cc==17  ||  cc==20) {     c2="#C61AF5";   }
+	if(cc==18  ||  cc==19) {     c2="#BC00F0";   }
+
+
+
+	return c2;
+	}
+
+
+
+
+function number_only()
+	{
+	if (event.keyCode < 45 || event.keyCode > 57  ) {   event.returnValue = false;  }
+	}
+
+
+
+
+</script>
+
+
+<style>
+.box1{
+
+font-family:arial;
+color: #FF0000;
+font-size:20;
+font-weight:bold;
+background:yellow;
+	border-top-style: dashed;
+	border-right-style: dashed;
+	border-bottom-style: dashed;
+	border-left-style: dashed;
+	text-align: center;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr='#ff33FFCC',EndColorStr='#ffCCFF00');
+
+
+}
+
+
+.box2{
+font-family:arial;
+font-size:20;
+font-weight:bold;
+background:orange;
+}
+
+
+.box{
+	height: 25px;
+	width: 25px;	
+}
+
+
+
+
+input.groovybutton
+{
+   font-size:20px;
+   font-family:Georgia,serif;
+   font-weight:bold;
+   background-color:#99FF00;
+   filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr='#ff33FFCC',EndColorStr='#ffCCFF00');
+   border-style:outset;
+   border-color:#99FF99;
+   border-width:3px;
+}
+
+
+</style>
+
+
+</head>
+
+
+<body bgcolor="#99FF33"         style="   filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr='#ff33FFCC',EndColorStr='#ffCCFF00');"   topmargin="20" leftmargin="20"  >
+
+<form  name="fp">
+
+<h2>
+  principal  $  <input type="text"        onKeypress="number_only()"       name="p"  value="10000" class="box1" size="20"  ><br>
+  <br>
+  rate (max 80) <input type="text"        onKeypress="number_only()"       name="r" size="5" value="5"   class="box1" > %<br>
+  <br>
+  add rate (max 10)
+  <input type="text"        onKeypress="number_only()"       name="add_ra" size="5" value="1"   class="box1" > %<br>
+  <br>
+  Year <input type="radio" value="y" checked name="term"   class="box" >&nbsp;&nbsp;&nbsp; 
+  Month <input type="radio" name="term" value="m"   class="box" >&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+
+<br><br>
+Compound interest  <input type="radio" value="n" checked name="simple"   class="box" >&nbsp;&nbsp;&nbsp; 
+Simple interest <input type="radio" name="simple" value="y"   class="box" >
+
+
+  
+  <br><br>
+  columns (max 1200) <input type="text"        onKeypress="number_only()"       name="max" size="5" value="120"  class="box1" ><br>
+  <br>
+  rows (max 100) 
+  <input type="text"        onKeypress="number_only()"       name="max_rows" size="5" value="20"  class="box1" ><br>
+  <br>
+  font size (max 80)
+  <input type="text"        onKeypress="number_only()"       name="fs" size="5" value="14"  class="box1" ><br>
+  <br>
+  <input type="button" value="      Run     " name="B3"      class="groovybutton"    onclick="X()" >&nbsp;&nbsp;&nbsp; 
+  <input type="reset" value="  Reset   " name="B2"  class="groovybutton"      onClick="shake(8)"    >&nbsp; 
+  popup <input type="checkbox" name="pop" value="ON" checked></form>
+</h1>
+<br>
+
+
+</body>

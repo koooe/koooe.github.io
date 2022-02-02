@@ -1,0 +1,566 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Scientific Calculator</title>
+<meta name="description" content="Javascript calculator with calculation history, math functions, hexadecimal, octal, and scientific notation.">
+<meta name="keywords" content="calculator, octal calculator, binary calculator, hexidecimal calculator, hexadecimal calculator, calc, calculate, calculater, scientific calculator, hex calculator, scientific notation calculator, javascript calculator, java script calculator, freeware calculator, free calculator, online calculator">
+<link rel="shortcut icon" href="http://ostermiller.org/favicon.ico" type="image/x-icon">
+
+<link rel="shortcut icon" href="http://ostermiller.org/calc/calculator.ico" type="image/x-icon">
+<script language=javascript type="text/javascript"><!--
+var lastResult = '';
+var savedResult = '';
+var lastInput = '';
+var lastPrinted = ''
+var modifyingHistory = false;
+var historyInd = 1;
+
+var HexDigit='(?:[0-9a-fA-F])';
+var Digit='(?:[0-9])';
+var OctalDigit='(?:[0-7])';
+var NonZeroDigit='(?:[1-9])';
+var Sign='(?:[\+]|[\-])';
+var DecimalNum='(?:(?:[0]|' + NonZeroDigit + Digit + '*))';
+var OctalNum='(?:[0]' + OctalDigit + '*)';
+var HexNum='(?:[0](?:[x]|[X])' + HexDigit + '+)';
+var SignedInt='(?:' + Sign + '?' + Digit + '+)';
+var Expo='(?:[e]|[E])';
+var ExponentPart='(?:' + Expo + SignedInt + ')';
+var Float1='(?:' + Digit + '+[\.]' + Digit + '*' + ExponentPart + '?)';
+var Float2='(?:[\.]' + Digit + '+' + ExponentPart + '?)';
+var Float3='(?:' + Digit + '+' + ExponentPart + ')';
+var Float4='(?:' + Digit + '+)';
+var Float = '(?:' + Float1 + '|' + Float2 + '|' + Float3 + '|' + Float4 + ')';
+var ZeroFloat1='(?:[0]+[\.][0]*' + ExponentPart + '?)';
+var ZeroFloat2='(?:[\.][0]+' + ExponentPart + '?)';
+var ZeroFloat3='(?:[0]+' + ExponentPart + ')';
+var ZeroFloat4='(?:[0]+)';
+var ZeroFloat = '(?:' + ZeroFloat1 + '|' + ZeroFloat2 + '|' + ZeroFloat3 + '|' + ZeroFloat4 + ')';
+var Space = '(?:[\n\ \t])';
+var Operands = '(?:[\(\)\+\-\/\*\|\&\,\~\^]|\<\<|\>\>|\>\>\>|\%)'
+var MathStuff = '(?:E|LN10|LN2|LOG10E|LOG2E|PI|SQRT1_2|SQRT2|abs|acos|asin|atan2|atan|ceil|cos|exp|floor|log|max|min|pow|random|round|sin|sqrt|tan)'
+var Functions = '(?:(?:Math[\.]' + MathStuff + ')|' + MathStuff + ')';
+var allowable = new RegExp(
+    HexNum + '|' + OctalNum + '|' + Float + '|' + DecimalNum + '|' +   
+    ZeroFloat + '|' + Space + '|' + Operands + '|' + Functions + '|ans', 'g'
+);
+
+var E = Math.E;
+var LN10 = Math.LN10;
+var LN2 = Math.LN2;
+var LOG10E = Math.LOG10E;
+var LOG2E = Math.LOG2E;
+var PI = Math.PI;
+var SQRT1_2 = Math.SQRT1_2;
+var SQRT2 = Math.SQRT2;
+function abs(x){return Math.abs(x);}
+function acos(x){return Math.acos(x);}
+function asin(x){return Math.asin(x);}
+function atan(x){return Math.atan(x);}
+function atan2(x){return Math.atan2(x);}
+function ceil(x){return Math.ceil(x);}
+function cos(x){return Math.cos(x);}
+function exp(x){return Math.exp(x);}
+function floor(x){return Math.floor(x);}
+function log(x){return Math.log(x);}
+function max(x,y){return Math.max(x,y);}
+function min(x,y){return Math.min(x,y);}
+function pow(x,y){return Math.pow(x,y);}
+function random(){return Math.random();}
+function round(x){return Math.round(x);}
+function sin(x){return Math.sin(x);}
+function sqrt(x){return Math.sqrt(x);}
+function tan(x){return Math.tan(x);}
+
+function replaceBinary(s){
+    var r = new RegExp("^((?:[a]|[^a])*)0[bB]([01]{1,32})((?:[a]|[^a])*)$");
+    while (r.exec(s)){
+        s = RegExp.$1 + " " + fromBin(RegExp.$2) + " " + RegExp.$3;
+    }
+    return s;
+}
+
+function replaceAns(s){
+	var r = new RegExp("^((?:[a]|[^a])*)ans((?:[a]|[^a])*)$");
+    while (r.exec(s)){
+        s = RegExp.$1 + " " + savedResult + " " + RegExp.$2;
+    }
+    return s;
+}
+
+function doCalculation(){    
+    var currentCalc = document.calculator.line.value;
+    var modCalc = replaceAns(currentCalc);
+    modCalc = replaceBinary(modCalc);
+    if (modCalc != lastPrinted && modCalc != lastInput && !modifyingHistory){        
+        var notAllowed = modCalc.split(allowable);
+        var numBadTokens = 0;
+        for(var k=0; k<notAllowed.length; k++){ 
+            if(notAllowed[k].length != 0){
+                numBadTokens++;
+            }
+        }
+        if (numBadTokens == 0){
+            try { 
+                var result = '' + eval(modCalc);
+                if (result != undefined){          
+                    lastResult = result;
+					savedResult = result;
+                    lastInput = '';
+                    displayResult();
+                    addToHistory(currentCalc);
+                    save();
+                }
+            } catch (ex) {
+                alert('Error type: ' + ex.name + '\n' + 'Error message: ' + ex.message);
+                lastInput = document.calculator.line.value;
+            }
+        } else {
+            alert(numBadTokens + ' unknown tokens:\n' + notAllowed);
+            lastInput = document.calculator.line.value;   
+        }
+        document.calculator.line.focus();
+    }
+}
+function lineChange(){
+    if (lastPrinted != document.calculator.line.value){
+        lastResult = '';
+    }
+}
+function displayResult(){ 
+    if(lastResult != ''){
+        var display = document.calculator.display.selectedIndex;
+        var intVal = parseInt(lastResult);
+        var floatVal = parseFloat(lastResult);
+        var print = '';
+        if ('' + floatVal != 'NaN' && display == 1){            
+            print = toSci(lastResult, false);
+        } else if ('' + floatVal != 'NaN' && display == 2){           
+            print = toSci(lastResult, true);
+        } else if ('' + intVal != 'NaN' && display == 3){
+            print = toHex(intVal);
+        } else if ('' + intVal != 'NaN' && display == 4){ 
+            print = toOctal(intVal);
+        } else if ('' + intVal != 'NaN' && display == 5){ 
+            print = toBin(intVal);
+        } else { 
+            print = lastResult;
+        }
+        lastPrinted = print;
+        document.calculator.line.value = print;
+        historyInd = 1;
+        document.calculator.line.style.backgroundColor='#aacc99';
+    } else {
+        document.calculator.line.style.backgroundColor='#cccc99';
+    }
+}
+function toSci(s, eng){
+    var exp = 0;
+    var negative = false;
+    if (s.length > 0 && s.charAt(0) == '-'){
+        negative = true;
+        s = s.substring(1,s.length);
+    }
+    var splitter = s.split(new RegExp('[eE]'));
+    if (splitter.length > 1){
+        exp = parseInt(splitter[1]);
+        s = splitter[0];
+    }
+    splitter = s.split(/[\.]/);
+    if (splitter.length > 1){
+        s = splitter[0] + splitter[1];
+        exp += splitter[0].length -1;
+    } else {
+        exp += s.length - 1;
+    }      
+    var leadingZeros = 0;
+    for (leadingZeros=0; leadingZeros < s.length  && s.charAt(leadingZeros) == '0'; leadingZeros++){
+       exp = exp - 1;
+    } 
+    s = s.substring(leadingZeros, s.length);
+    var moveDec;
+    if (eng){
+        if (exp>=0){
+            moveDec = (exp % 3) + 1;
+        } else {            
+            moveDec = 4 - ((-exp) % 3);
+            if (moveDec == 4){
+                moveDec = 1;
+            }
+        }  
+        exp -= (moveDec - 1);            
+    } else {
+        moveDec = 1;
+    }
+    var trailingZeros = '';
+    for (var i=s.length; i<moveDec; i++){
+        trailingZeros+='0';
+    }
+    return (
+        (negative?'-':'') +
+        ((s.length==0)?'0':s.substring(0,moveDec)) + 
+        ((s.length<=moveDec)?trailingZeros:('.'+s.substring(moveDec,s.length))) +
+        ((s.length==0||exp==0)?'':('e'+exp))
+    );
+}
+var digitArray = new Array('0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f');
+function toHex(n){
+    var result = ''
+    var start = true;
+    for (var i=32; i>0;){
+        i-=4;
+        var digit = (n>>i) & 0xf;
+        if (!start || digit != 0){
+            start = false;
+            result += digitArray[digit];
+        }
+    }
+    return '0x' + (result==''?'0':result);
+}
+
+function toOctal(n){
+    var result = ''
+    var start = true;
+    for (var i=33; i>0;){
+        i-=3;
+        var digit = (n>>i) & 0x7;
+        if (!start || digit != 0){
+            start = false;
+            result += digitArray[digit];
+        }
+    }
+    return '0' + (result==''?'0':result);
+}
+
+function toBin(n){
+    var result = ''
+    var start = true;
+    for (var i=32; i>0;){
+        i-=1;
+        var digit = (n>>i) & 0x1;
+        if (!start || digit != 0){
+            start = false;
+            result += digitArray[digit];
+        }
+    }
+    return '0b' + (result==''?'0':result);
+}
+
+function fromBin(s){
+    var result = 0;
+    var place = 0;
+    var i = s.length - 1;
+    while (i >= 0 && place < 32) {
+        if (s.charAt(i) == '1'){
+            result |= 1 << place;
+        }
+        place++;
+        i-=1;
+    }
+    return result;
+}
+
+function setCalc(s){
+    if (!modifyingHistory && s!=''){ 
+        lastResult = '';   
+        lastInput = s;
+        document.calculator.line.value = s; 
+        document.calculator.line.focus();   
+        lastInput = '';        
+        lastPrinted = ''; 
+        historyInd = 1;
+        document.calculator.line.style.backgroundColor='#cccc99';
+    	document.calculator.line.focus();
+    }
+}
+function appendCalc(s, replaceLast){
+    if (!modifyingHistory && s!=''){ 
+        lastResult = '';  
+        var newContents 
+        if (replaceLast==0 && document.calculator.line.value == lastPrinted){
+            newContents = s;
+        } else if (replaceLast==1 && document.calculator.line.value == lastPrinted){        
+            newContents = 'ans ' + s;
+		} else {            
+            newContents = document.calculator.line.value + s;
+        }
+        lastInput = newContents;
+        document.calculator.line.value = newContents; 
+        document.calculator.line.focus();   
+        lastInput = '';                
+        lastPrinted = '';  
+        historyInd = 1; 
+        document.calculator.line.style.backgroundColor='#cccc99';
+    	document.calculator.line.focus();
+    }
+}
+function clearCalc(){    
+    document.calculator.line.value = ''; 
+    historyInd = 1;
+    document.calculator.line.style.backgroundColor='#cccc99';
+    document.calculator.line.focus();
+}
+function addToHistory(s){
+    modifyingHistory = true;
+    var found = false;
+    var last = s;
+    var temp;
+    var historyElements = document.calculator.history.options;
+    for (var i=1; i<historyElements.length && !found; i++){
+        temp = historyElements[i].text;
+        historyElements[i].text = last;
+        if (temp == s){
+            found = true;
+        }
+        last = temp;
+    }
+    document.calculator.history.selectedIndex=0;
+    modifyingHistory = false;
+}
+function load(){ 
+    modifyingHistory = true;   
+    var historyElements = document.calculator.history.options;
+    var cookie = getCookie('calculatorState');
+    if (cookie != null && cookie.length > 1){  
+        var history = cookie.substring(1,cookie.length);    
+        if (history != null){
+            var historySplit = history.split('\n');
+            for (var i=1; i<historyElements.length && i<historySplit.length+1; i++){
+                historyElements[i].text = historySplit[i-1];
+            }
+        }
+        document.calculator.display.selectedIndex = parseInt(cookie.charAt(0));
+    }
+    modifyingHistory = false;
+}
+function save(){   
+    var historyElements = document.calculator.history.options;
+    var cookie = document.calculator.display.selectedIndex;
+    for (var i=1; i<historyElements.length; i++){
+        cookie += historyElements[i].text + '\n';
+    }
+    var expires = new Date();
+    // cookie expires in one year
+    expires.setTime(expires.getTime() + 365 * 24 * 60 * 60 * 1000);
+    document.cookie = (
+        'calculatorState' + '=' + 
+        escape(cookie) +
+        '; expires=' + expires.toGMTString()
+    );
+}
+function getCookie(name) {
+  var prefix = name + "=";
+  var begin = document.cookie.indexOf("; " + prefix);
+  if (begin == -1) {
+    begin = document.cookie.indexOf(prefix);
+    if (begin != 0) return null;
+  } else
+    begin += 2;
+  var end = document.cookie.indexOf(";", begin);
+  if (end == -1)
+    end = document.cookie.length;
+  return unescape(document.cookie.substring(begin + prefix.length, end));
+}
+function displayNextHistory(){
+	var historyElements = document.calculator.history.options;
+    var nextHistory = "";
+    if (historyInd >= historyElements.length || historyElements[historyInd].text == ""){
+    	historyInd = 1;
+    }
+    if (historyElements[historyInd].text != ""){
+    	var temp = historyInd;
+    	setCalc(historyElements[historyInd].text);
+        historyInd = temp;
+        document.calculator.history.selectedIndex = historyInd;
+    	historyInd++;
+    }
+    document.calculator.line.focus();
+}
+function nextDisplayMethod(){
+	var d = document.calculator.display;
+    var s = d.selectedIndex;
+    s++;
+    if (s >= d.options.length) s=0;
+    displayMethod(s)
+}
+function displayMethod(index){
+	document.calculator.display.selectedIndex = index;
+    displayResult();
+    save();
+    document.calculator.line.focus();
+}
+--></script>
+<style type="text/css">
+body {
+background-color:beige;
+font-size:10pt;
+}
+input.advanced {
+font-size:9pt;
+width:.75cm;
+padding:0;
+margin:0;
+}
+input.clear, input.number, input.operand, input.equal, input.other {
+font-size:15pt;
+}
+input.clear, input.number, input.operand, input.equal, input.other {
+width:1cm;
+font-weight:bold;
+padding:2px;
+}
+input.keyshortcut {
+background-color:beige;
+color:beige;
+text-decoration:none;
+border:none;
+}
+input.clear {
+background-color:#aa2222;
+border-color:#aa2222;
+color:white;
+}
+input.number {
+background-color:#CCaa99;
+border-color:#CCaa99;
+color:black;
+}
+input.operand {
+background-color:#aaaacc;
+border-color:#aaaacc;
+color:black;
+}
+input.equal {
+background-color:#444444;
+border-color:#444444;
+color:white;
+}
+input.other {
+background-color:#9ac693;
+border-color:#9ac693;
+color:black;
+}
+input.advanced {
+background-color:lightgray;
+border-color:lightgray;
+color:black;
+}
+input.line {
+background-color:#cccc99;
+border-color:#cccc99;
+font-size:15pt;
+font-weight:bold;
+width:100%;
+}
+select {
+background-color:#cccccc;
+border-color:#cccccc;
+color:black;
+}
+</style>
+
+</head>
+<body onload="load();document.calculator.line.focus();">
+
+<noscript>
+<p>This scientific calculator requires Javascript.  Please enable Javascript
+in your browser's preferences and then reload this page if you wish to use this scientific calculator.</p></noscript>
+<form name=calculator onSubmit="doCalculation();return false;">
+<input class=line type=text name="line" onChange="lineChange();" size="75">
+<br>
+<table summary="Calculator"><tr><td valign=top>
+<table class=keypad summary="Button Keypad"><tr>
+<td><input type="button" value="C" class="clear" accesskey=c onClick="clearCalc();" title="Clear (Alt-c)"></td>
+<td><input type="button" value="(" class="other" onClick="appendCalc('(',0);" title="Grouping Parenthesis"></td>
+<td><input type="button" value=")" class="other" onClick="appendCalc(')',0);" title="Grouping Parenthesis"></td>
+<td><input type="button" value="+" class="operand" onClick="appendCalc(' + ',1);" title="Addition"></td>
+<td rowspan=5>
+<input type="button" value="&amp;" class="advanced" onClick="appendCalc(' &amp; ',2);" title="Bitwise And"><br>
+<input type="button" value="|" class="advanced" onClick="appendCalc(' | ',2);" title="Bitwise Or"><br>
+<input type="button" value="^" class="advanced" onClick="appendCalc(' ^ ',2);" title="Bitwise xOr"><br>
+<input type="button" value="~" class="advanced" onClick="appendCalc(' ~ ',2);" title="Bitwise Negation"><br>
+<input type="button" value="&lt;&lt;" class="advanced" onClick="appendCalc(' &lt;&lt; ',2);" title="Bitwise Left Shift"><br>
+<input type="button" value="&gt;&gt;" class="advanced" onClick="appendCalc(' &gt;&gt; ',2);" title="Bitwise Right Shift"><br>
+<input type="button" value="%" class="advanced" onClick="appendCalc(' % ',2);" title="Modular Division"><br>
+<input type="button" value="," class="advanced" onClick="appendCalc(', ',2);" title="Comma for functions"><br>
+</td></tr><tr>
+<td><input type="button" value="7" class="number" onClick="appendCalc('7',0);" title="Seven"></td>
+<td><input type="button" value="8" class="number" onClick="appendCalc('8',0);" title="Eight"></td>
+<td><input type="button" value="9" class="number" onClick="appendCalc('9',0);" title="Nine"></td>
+<td><input type="button" value="-" class="operand" onClick="appendCalc(' - ',1);" title="Subtraction"></td>
+</tr><tr>
+<td><input type="button" value="4" class="number" onClick="appendCalc('4',0);" title="Four"></td>
+<td><input type="button" value="5" class="number" onClick="appendCalc('5',0);" title="Five"></td>
+<td><input type="button" value="6" class="number" onClick="appendCalc('6',0);" title="Six"></td>
+<td><input type="button" value="*" class="operand" onClick="appendCalc(' * ',1);" title="Multiplication"></td>
+</tr><tr>
+<td><input type="button" value="1" class="number" onClick="appendCalc('1',0);" title="One"></td>
+<td><input type="button" value="2" class="number" onClick="appendCalc('2',0);" title="Two"></td>
+<td><input type="button" value="3" class="number" onClick="appendCalc('3',0);" title="Three"></td>
+<td><input type="button" value="&#247;" class="operand" onClick="appendCalc(' / ',1);" title="Division"></td>
+</tr><tr>
+<td><input type="button" value="EE" class="other" onClick="appendCalc('e',2);" title="Scientific Notation Exponent"></td>
+<td><input type="button" value="0" class="number" onClick="appendCalc('0',0);" title="Zero"></td>
+<td><input type="button" value="." class="other" onClick="appendCalc('.',2);" title="Decimal Point"></td>
+<td><input type="button" value="=" class="equal" accesskey=e onClick="doCalculation();" title="Enter (Alt-e)"></td>
+</tr></table>
+</td><td valign=top>
+<p>
+<select name=display class=display onChange="displayResult();save();" title="(Alt-d)">
+<option selected>Decimal (Mixed Notation)
+<option>Decimal (Scientific Notation)
+<option>Decimal (Engineering Notation)
+<option>Hexadecimal
+<option>Octal
+<option>Binary
+</select></p>
+<p><select name=history class=history onChange="if(this.selectedIndex>0)setCalc(this.options[this.selectedIndex].text);" title="View previous entries (Alt-h)">
+<option>History:
+<option><option><option><option><option><option><option><option><option>
+<option><option><option><option><option><option><option><option><option><option>
+</select></p>
+<p><select name=mathConstants class=mathConstants onChange="appendCalc(this.options[this.selectedIndex].value,0);this.selectedIndex=0;">
+<option>Math Constants:
+<option value="E ">e
+<option value="LN10 ">ln(10)
+<option value="LN2 ">ln(2) 
+<option value="LOG10E ">log10(e) 
+<option value="LOG2E ">log2(e)
+<option value="PI ">&pi; 
+<option value="SQRT1_2 ">sqrt(1/2)
+<option value="SQRT2 ">sqrt(2)
+</select>&nbsp;</p>
+<p><select name=mathFunctions class=mathFunctions onChange="appendCalc(this.options[this.selectedIndex].value,0);this.selectedIndex=0;">
+<option>Math Functions:
+<option value="abs(">abs
+<option value="acos(">acos
+<option value="asin(">asin
+<option value="atan(">atan
+<option value="atan2(">atan2
+<option value="ceil(">ceil
+<option value="cos(">cos
+<option value="exp(">exp
+<option value="floor(">floor
+<option value="log(">log
+<option value="max(">max
+<option value="min(">min
+<option value="pow(">pow
+<option value="random()">random
+<option value="round(">round
+<option value="sin(">sin
+<option value="sqrt(">sqrt
+<option value="tan(">tan
+</select>&nbsp;</p>
+<p><input type="button" value="H" accesskey=h class="keyshortcut" onClick="displayNextHistory();">
+<input type="button" value="D" accesskey=d class="keyshortcut" onClick="nextDisplayMethod();">
+<input type="button" value="M" accesskey=m class="keyshortcut" onClick="displayMethod(0);">
+<input type="button" value="S" accesskey=s class="keyshortcut" onClick="displayMethod(1);">
+<input type="button" value="G" accesskey=g class="keyshortcut" onClick="displayMethod(2);">
+<input type="button" value="B" accesskey=b class="keyshortcut" onClick="displayMethod(5);">
+<input type="button" value="O" accesskey=o class="keyshortcut" onClick="displayMethod(4);">
+<input type="button" value="X" accesskey=x class="keyshortcut" onClick="displayMethod(3);">
+<input type="button" value="A" accesskey=a class="keyshortcut" onClick="appendCalc('ans ',0);"></p>
+</td></tr></table>
+</form>
+</body>
+</html>

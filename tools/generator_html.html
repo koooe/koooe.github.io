@@ -1,0 +1,1113 @@
+
+
+<html><head><title>  Html </title>
+
+<STYLE>
+BODY {
+SCROLLBAR-FACE-COLOR: #90906c;
+
+ SCROLLBAR-3DLIGHT-COLOR: #d8d800;
+ SCROLLBAR-ARROW-COLOR: #90246c;
+ SCROLLBAR-DARKSHADOW-COLOR: #b4b490;
+ SCROLLBAR-BASE-COLOR: #9090b4
+}
+
+
+.in{
+background:yellow;
+color:black;}
+
+.st{
+background:D9DC00;
+color:black;}
+
+.fo{
+background:FF7573;
+color:black;}
+
+.se{
+background:73FDFF ;
+color:black;}
+
+.op{
+background:FF69B4;
+color:black;}
+
+.li{
+background:8887EB;
+color:black;}
+
+.ff{
+background:91FF92;
+color:black;}
+
+
+.bo{
+background:C991FF;
+color:black;}
+
+
+.ta{
+background:orange;
+color:black;}
+
+</STYLE>
+
+<script>
+
+function round(number,X) {
+X = (!X ? 0 : X);
+return Math.round(number*Math.pow(10,X))/Math.pow(10,X);}
+
+//  ---------------------------------------------------------------------------  Start function X()  ------------------------------------------------------------------------------------------
+
+function X(){
+
+// -----------------------------------  Decal -------------------------------------------
+//      first=fi   name=na        value=va      size=ss      onclick=cl
+
+//       checked=ch  background=ba  width=w  height=h   font=fo
+
+//       onmouseover=ov   onmouseout=ou   last=la   break=br
+
+//       maxlength=ml   rows=ro    cols=col  font-family=fa
+
+//       font-color=fco
+
+
+i="<input    type=\"";
+
+fr=f.fi.value;
+na=f.n.value;
+vv=f.va.value;
+ss=f.si.value;
+ci=f.cl.value;
+
+bc=f.ba.value;
+wi=f.w.value;
+he=f.h.value;
+fn=f.fo.value;
+cla=f.cla.value;
+mx=f.ml.value;
+tb=f.ta.value;
+co=f.col.value;
+ro=f.row.value;
+fm=f.fa.value;
+fcl=f.fco.value;
+ale=f.ale.value;
+ocha=f.ocha.value;
+keyup=f.keyup.value;
+
+
+
+mv=f.ov.value;
+mu=f.ou.value;
+
+ls=f.la.value;
+be=f.br.value;
+
+v1="";
+
+
+if(f.fi.value.length>0){
+v1=fr+" ";}
+
+
+// ----------------------------------- Radio ----------------------------------
+
+if(f.t[0].checked){
+v1=v1+i+"text\"  ";}
+
+
+if(f.t[1].checked){
+v1=v1+i+"checkbox\" ";}
+
+if(f.t[2].checked){
+v1=v1+i+"radio\" ";}
+
+if(f.t[3].checked){
+v1=v1+i+"submit\" ";}
+
+if(f.t[4].checked){
+v1=v1+i+"reset\" ";}
+
+if(f.t[5].checked){
+v1=v1+i+"button\" ";}
+
+if(f.t[7].checked){
+v1=v1+i+"password\" ";}
+
+if(f.t[8].checked){
+v1=v1+i+"file\" ";}
+
+// ---------------------------------------- Texarea --------------------------------------------------------------------------------------------------
+
+
+
+if(f.t[6].checked){
+v1=v1+"<textarea    ";
+
+if(f.col.value.length>0){
+v1=v1+"cols="+co+"   ";}
+
+if(f.row.value.length>0){
+v1=v1+"rows="+ro+"   ";}
+
+}
+
+
+
+
+
+// ---------------------------------------- Value --------------------------------------------------------------------------------------------------
+
+
+if(f.n.value.length>0){
+v1=v1+"   name=\""+na+"\"  ";}
+
+
+if(f.va.value.length>0){
+v1=v1+"  value=\""+vv+"\"   ";}
+
+if(f.si.value.length>0){
+v1=v1+"  size=\""+ss+"\"  ";}
+
+if(f.ocha.value.length>0){
+v1=v1+"  onchange=\""+ocha+"\"  ";}
+
+if(f.keyup.value.length>0){
+v1=v1+"  onkeyup=\""+keyup+"\"  ";}
+
+if(f.cl.value.length>0){
+v1=v1+"  onclick=\""+ci+"\"  ";}
+
+
+if(f.cl.value.length==0){
+if(f.ale.value.length>0){
+v1=v1+"  onclick=\"alert(\'"+ale+"\')\"  ";}
+}
+
+if(f.ch.checked){
+v1=v1+"checked=\"checked\"  ";}
+
+if(f.cla.value.length>0){
+v1=v1+"  class=\""+cla+"\"  ";}
+
+if(f.ml.value.length>0){
+v1=v1+"maxlength="+mx+"   ";}
+
+if(f.ta.value.length>0){
+v1=v1+"tabindex="+tb+"   ";}
+
+
+
+// ---------------------------------------------  button link -----------------------------------------
+
+
+
+
+if(f.cl.value.length==0){
+if(f.in2.value.length>0){
+
+N2=f.in2.value;
+h=f.iLh.value;
+w=f.iLw.value;
+
+
+if(f.in2.value.length>0){
+
+N2=f.in2.value;
+h=f.iLh.value;
+w=f.iLw.value;
+
+
+if((f.iLsc.checked)==false){
+v1=v1+"onclick=\"window.open(\'"+N2+"\' , \'\' ,\'resizable ,width="+w+", height="+h+"\');\"  ";}
+
+if(f.iLsc.checked){
+v1=v1+"onclick=\"window.open(\'"+N2+"\' , \'\' ,\'scrollbars, resizable ,width="+w+", height="+h+"\');\"   ";}
+
+}
+}
+}
+
+
+
+
+
+
+
+
+// ------------------------------------- style ---------------------------------------------------------------------------------------------------------------
+
+if(f.ba.value.length>0 ||  f.w.value.length>0 || f.h.value.length>0 || f.fo.value.length>0  || f.fa.value.length>0 || f.fco.value.length>0 || f.sam.checked || f.ifill.value.length>0){
+v1=v1+"style=\"";
+
+
+
+if(f.w.value.length>0){
+v1=v1+"width:"+wi+"\;  ";}
+
+if(f.h.value.length>0){
+v1=v1+"height:"+he+"\;  ";}
+
+//fn=f.fo.value;
+
+if(f.fo.value.length>0){
+v1=v1+"font:"+fn+"\;  ";}
+
+
+if(f.fa.value.length>0){
+v1=v1+"font-family:"+fm+"\;  ";}
+
+if(f.fco.value.length>0){
+v1=v1+"color:"+fcl+"\;  ";}
+
+
+if(f.sam.checked){
+bc=mv;}
+
+
+
+if(f.ba.value.length>0  || f.sam.checked){
+v1=v1+"background:"+bc+"\;  ";}
+
+
+if(f.ifill.value.length>0){
+ifill=f.ifill.value;
+
+v1=v1+"   filter\:Glow\(color\:"+ifill+"\)   ";
+}
+
+
+
+
+
+v1=v1+"  \"";
+
+}
+
+
+// ------------------------------------- onmouseover ---------------------------------------------
+
+
+
+
+if(f.ov.value.length>0){
+v1=v1+"onmouseover=\"style.background=\'"+mv+"\'\"   ";}
+
+if(f.ou.value.length>0){
+v1=v1+"onmouseout=\"style.background=\'"+mu+"\'\"  ";}
+
+
+
+// ------------------------------------- last   Name---------------------------------------------
+
+// !!!!! cation  last and break move to line one
+
+
+
+
+// -------------------- if textarea  "><textarea>"   else     if  not  "/>"   -------------------
+
+
+
+
+if(f.t[6].checked){
+v1=v1+"></textarea>";
+}
+
+
+if((f.t[6].checked)==false){
+
+v1=v1+"   />";
+
+}
+
+
+if(f.la.value.length>0){
+v1=v1+ls;}
+
+// ------------------------------------ break <br> -----------------------------------------
+
+if(f.br.checked){
+v1=v1+"<br>";}
+
+
+
+
+
+
+// ------------------------------------ result ------------------------------------------
+
+//v1=f.s.value+v1+"\n";
+
+f.s.value=v1;
+
+
+}
+
+
+// ----------------------------------------------------------------------------   End of function X() --------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -------------------------------------- Add to Textarea---------------  function Y() ------------------------
+
+
+
+function  Y(){
+
+
+f.st.value=f.st.value+"\n"+f.s.value;
+
+}
+
+
+
+// ---------------------------------- Form ---------------------- function F()  ---------------------
+
+
+
+
+function F(){
+
+mt=f.me.value;    //    method
+nm=f.fna.value;   //     name
+ati=f.act.value;   //     action
+sum=f.sub.value;   //     onsubmit
+ree=f.res.value;   //     onreset
+
+
+
+F1="<form"
+
+
+if(f.me.value.length>0){
+F1=F1+"   method=\""+mt+"\"    ";}
+
+if(f.fna.value.length>0){
+F1=F1+"   name=\""+nm+"\"    ";}
+
+if(f.act.value.length>0){
+F1=F1+"   action=\""+ati+"\"    ";}
+
+if(f.sub.value.length>0){
+F1=F1+"   onsubmit=\""+sum+"\"    ";}
+
+if(f.res.value.length>0){
+F1=F1+"   onreset=\""+ree+"\"    ";}
+
+
+
+F1=F1+">";
+
+
+
+f.s.value=F1;
+}
+
+// ---------------------------------------- Table ----------------- function TA()  --------------------------
+
+
+
+function TA(){
+
+tbo=f.tbo.value;
+tcpa=f.tcpa.value;
+tcpd=f.tcpd.value;
+twid=f.twid.value;
+the=f.the.value;
+tpi=f.tpi.value;
+tbg=f.tbg.value;
+tbc=f.tbc.value;
+
+A1="<table  ";
+
+if(f.tbo.value.length>0){
+A1+="border="+tbo;
+}
+
+if(f.tcpa.value.length>0){
+A1+="   cellspacing="+tcpa;
+}
+
+if(f.tcpd.value.length>0){
+A1+="   cellspadding="+tcpd;
+}
+
+
+if(f.tpi.checked){
+
+if(f.twid.value.length>0){
+A1+="   width="+twid;
+}
+
+
+if(f.the.value.length>0){
+A1+="   height="+the;
+}
+
+}else{
+
+if(f.twid.value.length>0){
+A1+="   width=\""+twid+"%\"";
+}
+
+
+if(f.the.value.length>0){
+A1+="   height=\""+the+"%\"";
+}
+
+
+}
+
+
+if(f.tbg.value.length>0){
+A1+="   bgcolor=\""+tbg+"\"";
+}
+
+if(f.tbc.value.length>0){
+A1+="   bordercolor=\""+tbc+"\"";
+}
+
+
+if(f.tali.value=="center"){
+A1+="  align=\"center\"  ";
+}
+
+if(f.tali.value=="right"){
+A1+="  align=\"right\"  ";
+}
+
+
+
+
+A1+=" >";
+
+f.s.value=A1;
+
+}
+
+
+
+
+// -------------------------------------Font -------------------------------------
+
+
+function  Font(){
+
+fsz=f.fsi.value;
+fol=f.foc.value;
+fae=f.ffa.value;
+fnt=f.fte.value;
+fbg=f.fbg.value;
+fonc=f.fonc.value;
+fono=f.fono.value;
+fosi=f.fosi.value;
+ftsi=f.ftsi.value;
+fstz=f.fstz.value;
+obg=f.obg.value;
+vbg=f.vbg.value;
+ofg=f.ofg.value;
+vfg=f.vfg.value;
+fhe=f.fhe.value;
+fid=f.fid.value;
+fill=f.fill.value;
+tfill=f.tfill.value;
+wfill=f.wfill.value;
+
+
+
+S1="";
+
+
+
+
+	if(f.fcc.checked){
+	S1=S1+"<center>";}
+
+// ------------ fillter text----------------------
+
+if(f.fill.value.length>0){                 
+       
+
+	S1=S1+"<DIV STYLE=\"filter\:";
+
+     if(fill=="glow"){                 
+	S1=S1+"glow(Color=\'"+tfill+"\', Strength=8)\; width:"+wfill+"\"\;>";
+	}
+
+     if(fill=="shadow"){                 
+	S1=S1+"dropShadow(Color=\'"+tfill+"\')\; width:"+wfill+"\"\;>";
+	}
+
+     if(fill=="fly"){                 
+	S1=S1+"Shadow(Color=\'"+tfill+"\')\; width:"+wfill+"\"\;>";
+	}
+
+
+     if(fill=="wave"){                 
+	S1=S1+"wave(Strength=3,lightstrength=30)\; width:"+wfill+"\"\;>";
+	}
+
+     if(fill=="run"){                 
+	S1=S1+"blur(Strength=50)\; width:"+wfill+"\"\;>";
+	}
+
+
+     if(fill=="mask"){                 
+	S1=S1+"mask(Color=\'"+tfill+"\')\; width:"+wfill+"\"\;>";
+	}
+
+
+     if(fill=="xray"){                 
+	S1=S1+"xray()\; width:"+wfill+"\"\;>";
+	}
+
+
+
+}
+
+
+
+
+
+
+
+
+	S1=S1+"<font";
+
+	if(f.mar.checked){
+	S1="<marquee behavior=\"alternate\">"+S1;}
+
+
+if(f.fsi.value.length>0){                 
+S1=S1+"   size="+fsz+"  ";}
+
+if(f.foc.value.length>0){
+S1=S1+" color=\""+fol+"\"  ";}
+
+if(f.ffa.value.length>0){
+S1=S1+" face=\""+fae+"\"  ";}
+
+if(f.fid.value.length>0){
+S1=S1+" id=\""+fid+"\"  ";}
+
+if(f.fonc.value.length>0){
+S1=S1+"  onmouseover=\"style\.color=\'"+fonc+"\'\"  ";}
+
+if(f.fonc.value.length>0){
+S1=S1+"  onmouseout=\"style\.color=\'"+fono+"\'\"  ";}
+
+if(f.fosi.value.length>0){
+S1=S1+"  onmouseover=\"style\.fontSize=\'"+fosi+"\'\"  ";}
+
+if(f.ftsi.value.length>0){
+S1=S1+"  onmouseout=\"style\.fontSize=\'"+ftsi+"\'\"  ";}
+
+if(f.vbg.value.length>0){
+S1=S1+" onmouseover=\"document.bgColor=\'"+vbg+"\'\"   ";}
+
+if(f.obg.value.length>0){
+S1=S1+" onmouseout=\"document.bgColor=\'"+obg+"\'\"   ";}
+
+if(f.vfg.value.length>0){
+S1=S1+" onmouseover=\"document.fgColor=\'"+vfg+"\'\"   ";}
+
+if(f.ofg.value.length>0){
+S1=S1+" onmouseout=\"document.fgColor=\'"+ofg+"\'\"   ";}
+
+if(f.fbg.value.length>0  ||  f.fstz.value.length>0  ){
+S1=S1+" style=\"";
+
+if(f.fbg.value.length>0){
+S1=S1+"  background-color:"+fbg+"\;  ";}
+
+if(f.fstz.value.length>0){
+S1=S1+"  font-size:"+fstz+"\;  ";}
+
+S1=S1+"\"";
+
+}
+
+
+
+
+
+
+
+
+
+S1=S1+">";
+
+	if(f.fbo.checked){
+	S1=S1+"<b>";}
+
+	if(f.fit.checked){
+	S1=S1+"<i>";}
+
+	if(f.fun.checked){
+	S1=S1+"<u>";}
+
+	if(f.fhe.value.length>0){                 
+	S1=S1+"<"+fhe+">";}
+
+if(f.fte.value.length>0){
+S1=S1+fnt;}
+
+	if(f.fbo.checked){
+	S1=S1+"</b>";}
+
+	if(f.fit.checked){
+	S1=S1+"</i>";}
+
+	if(f.fun.checked){
+	S1=S1+"</u>";}
+
+	if(f.fhe.value.length>0){                 
+	S1=S1+"</"+fhe+">";}
+
+	S1=S1+"</font>";
+
+	if(f.fill.value.length>0){                 
+	S1=S1+"</DIV>";}
+
+	if(f.mar.checked){
+	S1=S1+"</marquee>";}
+
+	
+	
+
+
+	if(f.fcc.checked){
+	S1=S1+"</center>";}
+
+
+if(f.fbr.checked){
+S1=S1+"<br />";}
+
+
+f.s.value=S1;
+
+}
+
+// --------------------------------Body -----------------------------------------
+
+
+
+
+function  B(){
+
+S1="<body";
+boc=f.boc.value;
+bba=f.bba.value;
+btc=f.btc.value;
+bli=f.bli.value;
+bal=f.bal.value;
+bvl=f.bvl.value;
+bon=f.bon.value;
+
+
+
+
+if(f.boc.value.length>0){
+S1=S1+" bgcolor=\""+boc+"\"  ";}
+
+if(f.bba.value.length>0){
+S1=S1+" background=\""+bba+"\"  ";}
+
+if(f.btc.value.length>0){
+S1=S1+" text=\""+btc+"\"  ";}
+
+if(f.bli.value.length>0){
+S1=S1+" link=\""+bli+"\"  ";}
+
+if(f.bal.value.length>0){
+S1=S1+" alink=\""+bal+"\"  ";}
+
+if(f.bvl.value.length>0){
+S1=S1+" vlink=\""+bvl+"\"  ";}
+
+if(f.bon.value.length>0){
+S1=S1+" onload=\""+bon+"\"  ";}
+
+
+
+
+
+if(f.c1.value.length>0){
+
+
+S1=S1+"  style=\"filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=\'";
+
+S1=S1+f.c1.value;
+
+
+S1=S1+"\', endColorstr=\'";
+
+
+S1=S1+f.c2.value;
+
+
+	if(f.top.checked){
+S1=S1+"\'\)\;\"";
+}else{
+S1=S1+"\'\, gradientType=\'1\'\)\;\"";
+}
+
+
+
+}
+
+
+
+
+S1=S1+">";
+
+f.s.value=S1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// -------------------------------------Test -------------------------------------
+
+function  test1(){
+x=window.open ('','t1' , 'resizable ,width=550,height=200');
+x.document.write(f.s.value);
+window.x.focus();
+}
+
+function  test2(){
+x=window.open ('','t1' , 'resizable ,width=650,height=500');
+x.document.write(f.st.value);
+window.x.focus();
+}
+
+
+// --------------------------------Body -----------------------------------------
+</script>
+</head><body bgcolor="CDC1C5">
+
+<form name="f">
+
+
+<! ------------------------------------INPUT radio ------------------------------------>
+[INPUT]&nbsp;
+text <input type="radio"  name="t"  value="text" checked="checked" />
+checkbox <input type="radio"  name="t"  value="checkbox" />
+radio  <input type="radio"  name="t"  value="radio" />
+submit  <input type="radio"  name="t"  value="submit" />
+reset  <input type="radio"  name="t"  value="reset" />
+button  <input type="radio"  name="t"  value="button" />
+textarea  <input type="radio"  name="t"  value="button" />
+password  <input type="radio"  name="t"  value="button" />
+file  <input type="radio"  name="t"  value="button" />
+
+&nbsp;(textarea only)
+
+
+cols   <input type="text" class="in" name="col" size="5" style="width:30;  "  />
+rows   <input type="text"  class="in"  name="row" size="5" style="width:30;  "  />
+
+<br>
+
+first  name  &nbsp;<input type="text" class="in" name="fi" size="10" />&nbsp;&nbsp;
+
+name  &nbsp;<input type="text" class="in"  name="n" size="10" />&nbsp;&nbsp;
+
+value  &nbsp;<input type="text"  class="in"  name="va" size="10" />&nbsp;&nbsp;
+
+size   &nbsp;<input type="text"   class="in"   name="si" size="5" style="width:30;  "  />&nbsp;&nbsp;
+
+onclick  &nbsp;<input type="text"  class="in"  name="cl" size="5" />&nbsp;&nbsp;
+onchange  &nbsp;<input type="text"  class="in"  name="ocha" size="5" />&nbsp;&nbsp;
+onkeyup  &nbsp;<input type="text"  class="in"  name="keyup" size="5" />
+
+
+
+<br>
+
+
+<b>(Checkbox only)</b> checked &nbsp;<input type="checkbox" class="in"   name="ch"  value="checked" />&nbsp;&nbsp;&nbsp;&nbsp;
+
+class  &nbsp;<input type="text" class="in"   name="cla" size="5"     />&nbsp;&nbsp;&nbsp;&nbsp;
+
+maxlength  &nbsp;<input type="text" class="in"   name="ml" size="5"  style="width:30;"   />&nbsp;&nbsp;&nbsp;&nbsp;
+
+tabindex  &nbsp;<input type="text" class="in"   name="ta" size="5"  style="width:30;"   />&nbsp;&nbsp;&nbsp;&nbsp;
+
+last name  &nbsp;<input type="text" class="in"   name="la" size="10" />&nbsp;&nbsp;&nbsp;&nbsp;
+
+break &nbsp;<input type="checkbox" class="in"   name="br"  value="break" />&nbsp;&nbsp;
+
+alert  &nbsp;<input type="text"  class="in"  name="ale" size="10" />
+
+<br>
+
+<b>(popup link)</b> &nbsp;&nbsp;  
+address&nbsp;<input type="file" class="in"   name="in2" size="65"  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+scorll &nbsp;<input type="checkbox" class="in"   name="iLsc"  value="scroll"   />&nbsp;&nbsp;&nbsp;&nbsp;
+width&nbsp;<input type="text" class="in"   name="iLw" size="5" style="width:30; " value="20"  />&nbsp;&nbsp;&nbsp;&nbsp;
+heigth&nbsp;<input type="text" class="in"   name="iLh" size="5" style="width:30; " value="20"  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+<br>
+<font color="0200A0">
+<b>( style ) &nbsp;&nbsp;&nbsp;&nbsp;
+width  &nbsp;<input type="text" class="st"   name="w" size="4"  style="width:40;  "  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+height  &nbsp;<input type="text"  class="st"  name="h" size="4"  style="width:40;  "   />&nbsp;&nbsp;&nbsp;&nbsp;
+
+font size  &nbsp;<input type="text" class="st"   name="fo" size="4" style="width:30;  "   />&nbsp;&nbsp;&nbsp;&nbsp;
+
+font color  &nbsp;<input type="text" class="st"   name="fco" size="10"   />&nbsp;&nbsp;&nbsp;&nbsp;
+
+<select  class="st"  name="fa">
+<option  value="" >font-family </option>
+<option  value="arial" >arial</option>
+<option value="Comic Sans MS">Comic Sans MS</option>
+<option value="Sylfaen">Sylfaen</option>
+<option value="Microsoft Sans Serif">Microsoft Sans Serif</option>
+<option value="Trebuchet MS">Trebuchet MS</option>
+<option value="Verdana">Verdana</option>
+<option value="Monotype Corsiva">Monotype Corsiva</option>
+<option value="Georgia">Georgia</option>
+<option value="Arial Unicode MS">Arial Unicode MS</option>
+</select>
+
+&nbsp;
+
+fill color <input type="text" class="st"   name="ifill" size="10"   />
+
+
+
+
+<br>
+
+<! ------------------------------------------------- background ----------------------------------------->
+
+background  &nbsp;<input type="text" class="st"   name="ba" size="10" />&nbsp;&nbsp;&nbsp;&nbsp;
+
+mouseover  &nbsp;<input type="text" class="st"   name="ov" size="10" />&nbsp;&nbsp;&nbsp;&nbsp;
+
+mouseout  &nbsp;<input type="text"  class="st"    name="ou" size="10" />&nbsp;&nbsp;&nbsp;&nbsp;
+
+same background &nbsp;<input type="checkbox" class="st"   name="sam"  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+<br>
+<hr  color="yellow" size=1>
+
+<!--------------------------------- form -------------------------------------------------------------------->
+<font color="A00200">
+<b>[FORM]&nbsp; &nbsp; 
+method  &nbsp;<input type="text" class="fo"   name="me" size="10" style="width:40;"  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+name  &nbsp;<input type="text" class="fo"   name="fna" size="10"  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+action  &nbsp;<input type="text" class="fo"   name="act" size="25"  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+onsubmit  &nbsp;<input type="text" class="fo"   name="sub" size="10"  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+onreset  &nbsp;<input type="text" class="fo"   name="res" size="10"  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<br>
+<!---------------------------------------------- Table ------------------------------------------------>
+<hr  color="yellow" size=1>
+<font color="green">
+
+[Table]&nbsp; border&nbsp;<input type="text" class="ta"   name="tbo" size="5" style="width:20; " value="1"  />&nbsp;
+cellspace&nbsp;<input type="text" class="ta"   name="tcpa" size="5" style="width:20; "   />&nbsp;
+cellpad&nbsp;<input type="text" class="ta"   name="tcpd" size="5" style="width:20; "   />&nbsp;
+width&nbsp;<input type="text" class="ta"   name="twid" size="5" style="width:30; "   />&nbsp;
+height&nbsp;<input type="text" class="ta"   name="the" size="5" style="width:30; "   />&nbsp;
+pixel&nbsp;<input type="checkbox" class="ta"   name="tpi"  value="pix"   />&nbsp;
+bgcolor&nbsp;<input type="text" class="ta"   name="tbg" size="7"    />&nbsp;
+bordercolor&nbsp;<input type="text" class="ta"   name="tbc" size="7"    />&nbsp;
+
+
+&nbsp; &nbsp; &nbsp;
+<select  name="tali"   style="background:orange;  " >
+<option  >align</option>
+<option value="left" >left</option>
+<option value="center" >center</option>
+<option value="right" >right</option>
+</select>
+
+
+
+<!---------------------------------------------------- font ------------------------------------------>
+
+<hr  color="yellow" size=1>
+<font color="511789">
+
+<b>[FONT]</b>&nbsp;&nbsp;&nbsp;
+text&nbsp;<input type="text" class="ff"   name="fte" size="80"     />&nbsp;&nbsp;&nbsp;
+size&nbsp;<input type="text" class="ff"   name="fsi" size="5" style="width:30; "  />&nbsp;&nbsp;&nbsp;&nbsp;
+style size&nbsp;<input type="text" class="ff"   name="fstz" size="5" style="width:30; "  />&nbsp;&nbsp;&nbsp;&nbsp;
+
+id &nbsp;<input type="text" class="ff"   name="fid" size="5"     />&nbsp;&nbsp;
+
+<br>
+text color&nbsp;<input type="text" class="ff"   name="foc" size="6"    />&nbsp;&nbsp;&nbsp;&nbsp;
+
+<select  class="ff"   name="ffa">
+<option  value="" >font face</option>
+<option  value="arial" >arial</option>
+<option value="Comic Sans MS">Comic Sans MS</option>
+<option value="Sylfaen">Sylfaen</option>
+<option value="Microsoft Sans Serif">Microsoft Sans Serif</option>
+<option value="Trebuchet MS">Trebuchet MS</option>
+<option value="Verdana">Verdana</option>
+<option value="Monotype Corsiva">Monotype Corsiva</option>
+<option value="Georgia">Georgia</option>
+<option value="Arial Unicode MS">Arial Unicode MS</option>
+</select> &nbsp;&nbsp;&nbsp;
+
+highlight color &nbsp;<input type="text" class="ff"   name="fbg" size="5"     />&nbsp;&nbsp;
+bold  &nbsp;<input type="checkbox" class="ff"   name="fbo"  value="bold"   />&nbsp;&nbsp;&nbsp;&nbsp;
+italic  &nbsp;<input type="checkbox" class="ff"   name="fit"  value="ita"   />&nbsp;&nbsp;&nbsp;&nbsp;
+underline  &nbsp;<input type="checkbox" class="ff"   name="fun"  value="underline"   />&nbsp;&nbsp;&nbsp;&nbsp;
+break  &nbsp;<input type="checkbox" class="ff"   name="fbr"  value="break"   />&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+<select  class="ff"   name="fhe">
+<option  value=""   >heading  </option>
+<option  value="h1"   >head 1</option>
+<option  value="h2"   >head 2</option>
+<option  value="h3"   >head 3</option>
+<option  value="h4"   >head 4</option>
+<option  value="h5"   >head 5</option>
+<option  value="h6"   >head 6</option>
+</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+center  &nbsp;<input type="checkbox" class="ff"   name="fcc"  value="center"   />&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+marquee  &nbsp;<input type="checkbox" class="ff"   name="mar"  value="mar"   />&nbsp;&nbsp;&nbsp;&nbsp;
+ over color&nbsp;<input type="text" class="ff"   name="fonc" size="6"    />&nbsp;&nbsp;&nbsp;&nbsp;
+out color&nbsp;<input type="text" class="ff"   name="fono" size="6"    />&nbsp;&nbsp;&nbsp;&nbsp;
+over size&nbsp;<input type="text" class="ff"   name="fosi" size="6"  style="width:30; "   />&nbsp;&nbsp;&nbsp;&nbsp;
+out size&nbsp;<input type="text" class="ff"   name="ftsi" size="6"  style="width:30; "   />&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+over bgcolor&nbsp;<input type="text" class="ff"   name="vbg" size="6"     />&nbsp;
+out bgcolor&nbsp;<input type="text" class="ff"   name="obg" size="6"     />&nbsp;
+over fgcolor&nbsp;<input type="text" class="ff"   name="vfg" size="6"     />&nbsp;
+out fgcolor&nbsp;<input type="text" class="ff"   name="ofg" size="6"     />&nbsp;&nbsp;&nbsp;
+
+<select  name="fill"   style="background:#66FF66;  " >
+<option value="" >fill effect</option>
+<option value="glow" >glow</option>
+<option value="shadow" >shadow</option>
+<option value="fly" >fly</option>
+<option value="wave" >wave</option>
+<option value="run" >run</option>
+<option value="mask" >mask</option>
+<option value="xray" >xray</option>
+</select>
+&nbsp;
+
+
+fillcolor&nbsp;<input type="text" class="ff"   name="tfill" size="6"   value="blue"  />&nbsp;
+width &nbsp;<input type="text" class="ff"   name="wfill" size="6"  style="width:40; "  value="650"   />&nbsp;
+
+
+
+<!---------------------------------------------------- Body ------------------------------------------>
+
+
+<hr  color="yellow" size=1>
+<font color="69374F">
+
+<b>[BODY]</b>&nbsp;&nbsp; 
+bgcolor&nbsp;<input type="text" class="bo"   name="boc" size="5"     />&nbsp;&nbsp;
+background&nbsp;<input type="text" class="bo"   name="bba" size="5"     />&nbsp;&nbsp;
+text color&nbsp;<input type="text" class="bo"   name="btc" size="5"     />&nbsp;&nbsp;&nbsp;
+link color&nbsp;<input type="text" class="bo"   name="bli" size="5"     />&nbsp;&nbsp;&nbsp;
+vlink color&nbsp;<input type="text" class="bo"   name="bvl" size="5"     />&nbsp;&nbsp;&nbsp;
+alink color&nbsp;<input type="text" class="bo"   name="bal" size="5"     />&nbsp;&nbsp;&nbsp;
+<br>
+onload&nbsp;<input type="text" class="bo"   name="bon" size="5"     />&nbsp;&nbsp;&nbsp;
+fill color1#&nbsp;<input type="text" class="bo"   name="c1" size="6"     />&nbsp;&nbsp;&nbsp;
+fill color2#&nbsp;<input type="text" class="bo"   name="c2" size="6"     />&nbsp;&nbsp;&nbsp;
+
+up &nbsp;<input type="checkbox" class="bo"   name="top"  value="top"   />
+
+
+
+
+
+<!---------------------------------------------------- Onclick ------------------------------------------>
+
+
+<hr  color="yellow" size=1>
+
+
+<input    type="button"   value="Input"     onclick="X()"  style="background:yellow;  width:80;  height:30;  font:20; color:black;  "onmouseover="style.background='#EEC900'"onmouseout="style.background='yellow'"   />
+
+<input    type="button"   value="Form"     onclick="F()"  style="width:80;  height:30;  font:20;  background:FF7573;  color:black;   "onmouseover="style.background='FF3937'"   onmouseout="style.background='FF7573'"     />
+
+<input    type="button"   value="Table"     onclick="TA()"  style="width:80;  height:30;  font:20;  background:#E78D08;    "onmouseover="style.background='#E78D08'"   onmouseout="style.background='#F9B34B'"     />
+
+<input    type="button"   value="Font"  onclick="Font()"  style="background:00FF99;  width:80;  height:30;  font:20;  color:black;  "onmouseover="style.background='009999'"onmouseout="style.background='00FF99'"   />
+
+<input    type="button"   value="Body"     onclick="B()"  style="width:80;  height:30;  font:20;  color:black;  background:C991FF;    "onmouseover="style.background='AC55FF'"   onmouseout="style.background='C991FF'"     />
+
+
+
+
+<input    type="button"   value="Add"     onclick="Y()"  style="background:55A8FF;  width:80;  height:30;  font:20; color:black;  "onmouseover="style.background='007AFA'"onmouseout="style.background='55A8FF'"   />
+
+<input    type="reset"   value="reset"   style="background:3937FF;  width:80;  height:30;  font:20;  color:black;  "onmouseover="style.background='0300DC'"onmouseout="style.background='3937FF'"   />
+
+<input    type="button"   value="Test1"     onclick="test1()"  style="background:00CC33;  width:80;  height:30;  font:20; color:black;   "onmouseover="style.background='009933'"onmouseout="style.background='00CC33'"   />
+
+<input    type="button"   value="Test2"     onclick="test2()"  style="background:FF3937;   width:80;  height:30;  font:20; color:black;   "onmouseover="style.background='DC0300'"   onmouseout="style.background='FF3937'"     />
+
+
+
+<br>
+<br>
+
+<input    type="text"     name="s"    size="150"   style="background:#FFFF55; color:red;  "/>
+<br>
+
+<textarea    cols=150   rows=18      name="st"  style="font-family:arial;    color:blue; background:#B4D1E4;  " />
+</textarea>
+
+
+</font></font></font></font>
+</font></font></font></font>
+</form>
+
+
+
+
+
+
+
+

@@ -1,0 +1,208 @@
+<head>
+<title>muilt link</title>
+
+
+
+
+<script>
+
+
+cols = prompt("How many rows you want ? (1- 100 ) :", "10")
+
+if(cols > 100  ){cols=50; }
+if( cols<3 ){cols=3; }
+
+
+
+function LINK(x){
+
+num="";                                   /* begin num */
+add=x.add.value;                   /*  add to begin of  address  */
+add_e=x.add_end.value;     /*  add to end of  address  */
+
+
+nab=x.nab.value;                   /*  add to begin of  name  */
+nae=x.nae.value;                   /*  add to end of  name  */
+
+
+dn=x.dn.value;                       /*  default name */
+tn=" ";
+
+if(x.tn.checked){ tn="  target=\"_blank\"  ";  }
+
+
+se=x.op.value;
+if( se=="b" ){se="<br>"; }    /*  option   */
+if( se=="n" ){se=" "; }
+if( se=="s1" ){se="&nbsp\;"; }
+if( se=="s2" ){se="&nbsp\;&nbsp\;"; }
+if( se=="s3" ){se="&nbsp\;&nbsp\;&nbsp\;"; }
+if( se=="s4" ){se="&nbsp\;&nbsp\;&nbsp\;&nbsp\;"; }
+S1="";
+
+
+
+
+
+for(i=0; i<cols ; i++){
+
+	n=x.n[i].value;
+	a=x.a[i].value;
+	if(x.num.checked){ num=i+1*1+". "; }
+
+	if(n==""){ n=a; }
+	if(dn !=""  &&  a !="" ){ n=dn; }
+
+	if(x.seq.checked   ){  n=a=i+1;     }   /* sequence */
+
+
+	if(a !="")
+		{
+		S1+=num+"<a href=\""+add+a+add_e+"\" "+tn+">"+nab+n+nae+"</a>"+se+"\n";
+		}
+
+
+}
+
+x.D.value=S1;
+}
+
+
+function POP(x){
+
+LINK(x);
+
+TT=window.open('','','scrollbars=1,resizable=1,width=400, height=500');
+TT.document.write("<body bgcolor=yellow >"+S1);
+
+}
+
+
+function Tes(x){
+
+S1=x.D.value;
+
+TT=window.open('','','scrollbars=1,resizable=1,width=400, height=500');
+TT.document.write("<body bgcolor=yellow >"+S1);
+
+}
+
+
+
+
+function Cl(x,i){
+
+x.n[i].value="";
+x.a[i].value="";
+
+}
+
+
+</script>
+
+
+
+
+
+
+
+<style>
+.bo1         { background-color: #21F789 }
+.bo2         { background-color: skyblue }
+.bo3         { background-color: #F593E3;  color:red;}
+.bo4         { background-color: #BC08DB }
+input, .bo6         { background-color: #FAA51A }
+
+
+BODY {
+SCROLLBAR-3DLIGHT-COLOR: #fc4800;
+ SCROLLBAR-BASE-COLOR: #fcb400
+}
+</style>
+
+
+
+
+
+
+
+</head>
+<body bgcolor="#FFFF00">
+
+
+<table width="834"><tr><td width="828">
+
+<form name="link">
+  <input type="button" value="   Run  "    onclick="LINK(this.form)"    class="bo6"      name="B1">
+  <input type="reset" value="Reset" name="B2"         class="bo6"     >&nbsp;&nbsp; 
+
+  <select size="1" name="op"  class="bo6"  >
+  <option selected value="b">break</option>
+  <option value="n">none</option>
+  <option value="s1">1 space</option>
+  <option value="s2">2 space</option>
+  <option value="s3">3 space</option>
+  <option value="s4">4 space</option>
+  </select>&nbsp;
+
+  <input type="button" value=" POP "    onclick="POP(this.form)"     class="bo6"      name="B4">&nbsp; 
+  
+  <input type="button" value="Test"    onclick="Tes(this.form)"     class="bo6"      name="B9">&nbsp;&nbsp; 
+  popup <input type="checkbox" name="tn" value="ON" checked>&nbsp;&nbsp;
+  num <input type="checkbox" name="num" value="ON">&nbsp;&nbsp; default name&nbsp;
+  <input type="text" name="dn" size="18">&nbsp;
+  sequence
+  <input type="checkbox" name="seq" value="ON"  class="sequ"    >&nbsp;&nbsp; <br>
+  <br>
+  <font face="Arial Narrow">Address begin&nbsp; <input type="text" name="add" size="41">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  end <input type="text" name="add_end" size="43"><br>
+  Name 
+  begin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <input type="text" name="nab" size="41"   class="sequ"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 
+  end <input type="text" name="nae" size="43"  class="sequ"  ><br>
+  </font>
+  <br>
+
+
+
+<script>
+
+
+for(i=0; i<cols ; i++){
+
+j=i+1
+
+if(i<9){ document.write("&nbsp\;&nbsp\;"); }
+
+
+S2=j+".  <input type=\"text\" name=\"n\" size=\"16\"  class=\"bo1\"  >&nbsp\;&nbsp\;&nbsp\;\n\
+  <input type=\"text\" name=\"a\" size=\"80\" class=\"bo2\"             >&nbsp\;\n\
+  <input type=\"button\" value=\" clear \"   class=\"bo4\"  onclick=\"Cl(this.form,"+i+")\"   ><br>";
+
+document.write(S2);
+
+
+}
+
+
+
+/*
+  <input type="text" name="n" size="16"  class="bo1"  >&nbsp;&nbsp;&nbsp;
+  <input type="text" name="a" size="80" class="bo2"   >&nbsp;
+  <input type="button" value=" clear "   class="bo4"  onclick="Cl(this.form,0)"   ><br>
+  */
+
+
+  </script>
+
+
+
+
+
+
+  <br>
+  <textarea rows="20" name="D" cols="93"  class="bo3"           ></textarea></p>
+</form>
+
+
+</td></tr></table>

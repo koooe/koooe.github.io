@@ -1,0 +1,128 @@
+<style>
+<!--
+table        { text-align: center }
+.box2        { font-family: Arial Black; background-color: #FF6600;         font-size:12pt;
+
+	filter:progid:DXImageTransform.Microsoft.Gradient(endColorstr='#FF9500', startColorstr='#FFF000', gradientType='1');
+
+ }
+.box1        { border:1px dotted #FF0000; font-size: 20pt; background-color: 
+               white;   width:250; font-family:Arial; text-align:center
+
+	
+
+		    }
+-->
+</style>
+
+
+<script>
+
+function P(){
+}
+
+
+
+function E(){
+c1="#D312D1";
+c2="white";
+
+n=10;
+t=200;
+
+ setTimeout("po.A.style.background=c1;  ",n);     n+=t;       setTimeout("po.A.style.background=c2;  ",n);          
+ setTimeout("po.B.style.background=c1;  ",n);     n+=t;       setTimeout("po.B.style.background=c2;  ",n);       
+ setTimeout("po.C.style.background=c1;  ",n);     n+=t;       setTimeout("po.C.style.background=c2;  ",n);       
+ setTimeout("po.D.style.background=c1;  ",n);     n+=t;       setTimeout("po.D.style.background=c2;  ",n);      
+
+
+  }
+
+
+
+
+
+
+  
+function Cal(){  
+num=0;
+n=100;
+t=100;
+c1="red";
+c2="white";
+
+A=po.A.value*1;
+B=po.B.value*1;
+C=po.C.value*1;
+D=po.D.value*1;
+
+
+if(A==""){  num++; }
+if(B==""){  num++; }
+if(C==""){  num++; }
+if(D==""){  num++; }
+if(num !=1 ){  alert("Error ! 3 value please ! ");      E();   return false;  }
+
+
+
+if(A==""){  po.A.value=B*C/D;  setTimeout("po.A.style.background=c1;  ",n);     n+=t;       setTimeout("po.A.style.background=c2;  ",n);          }
+if(B==""){  po.B.value=A*D/C;    setTimeout("po.B.style.background=c1;  ",n);     n+=t;       setTimeout("po.B.style.background=c2;  ",n);       }
+if(C==""){ po.C.value=A*D/B;     setTimeout("po.C.style.background=c1;  ",n);     n+=t;       setTimeout("po.C.style.background=c2;  ",n);       }
+if(D==""){ po.D.value=B*C/A;     setTimeout("po.D.style.background=c1;  ",n);     n+=t;       setTimeout("po.D.style.background=c2;  ",n);       }
+
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+<title>:::::: Proportion  ::::: </title>
+
+
+
+
+
+
+
+
+
+<body bgcolor="#FFFF00" topmargin="0" leftmargin="0"   style="filter:progid:DXImageTransform.Microsoft.Gradient(endColorstr='#FF9500', startColorstr='#FFF000', gradientType='1');">
+<div align="center">
+<form name="po">
+
+
+
+
+
+
+
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="579" height="165" id="AutoNumber1">
+    <tr>
+      <td width="141" height="70" style="border-bottom-style: solid; border-bottom-width: 3">
+      <input type="text" name="A" size="20"  onkeyup="P()"  class="box1" tabindex="1"   ></td>
+      <td width="398" height="137" rowspan="2"><font size="7">=</font></td>
+      <td width="196" height="70" style="border-bottom-style: solid; border-bottom-width: 3">
+      <input type="text" name="C" size="20"  onkeyup="P()"  class="box1" tabindex="2"   ></td>
+    </tr>
+    <tr>
+      <td width="141" height="68" style="border-top-style: solid; border-top-width: 1">
+      <input type="text" name="B" size="20"  onkeyup="P()"  class="box1" tabindex="3"   ></td>
+      <td width="196" height="68" style="border-top-style: solid; border-top-width: 1">
+      <input type="text" name="D" size="20"  onkeyup="P()"  class="box1" tabindex="4"   ></td>
+    </tr>
+    <tr><td height="28">
+    <p style="text-align: left">
+    <input type="button" value="Proportion"  class="box2"   onclick="Cal()"    >&nbsp;&nbsp;&nbsp;
+<input type="reset" value="Reset" name="B1"         class="box2"  >
+    </tr></td>
+  </table>
+
+</form></div>
