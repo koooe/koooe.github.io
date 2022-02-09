@@ -1,0 +1,14 @@
+input  ,.taOne   ,.exactLenLb,.lessLenLb,.greatLenLb,button { 
+font-size: 16pt; font-family: Arial; }
+
+ 
+.startStringTb{ background-color: #99FFFF; }
+.midOrderStringTb{ background-color: #99FF33; }
+.midStringTb{ background-color: #FF99CC; }
+.endStringTb{ background-color: #00FF99; }
+
+
+
+.taOne{ background-color: #FFAC55; }
+body  { background-color: #FEFFCD }
+ 
