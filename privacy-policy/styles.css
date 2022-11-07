@@ -1,0 +1,30 @@
+html {
+    height: 100%; /* fallback for IE and older browsers */
+    height: 100vh;
+}
+
+body {
+    height: auto; /* required to allow content to expand vertically without overflow */
+    width: auto;
+    min-height: 100%; /* fallback for IE and older browsers */
+    min-height: 100vh;
+    margin: 50;
+    padding: 50;
+	
+	background-color: #110404;
+}
+
+p{
+	margin-left:  16px;
+}
+
+footer {
+	width: 100%;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../font/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
